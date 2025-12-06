@@ -4,47 +4,72 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Ecocar | Lubricentro Profesional</title>
-    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;700;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;700;800;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 
     <style>
         /* --- PALETA DE COLORES ECOCAR --- */
         :root {
-            --eco-green: #00b894;      /* Verde vibrante principal */
-            --eco-dark: #2d3436;       /* Gris oscuro elegante */
-            --eco-blue: #0984e3;       /* Azul para autos */
-            --eco-orange: #e17055;     /* Naranja para motos */
-            --eco-gray: #636e72;       /* Gris para pesado/otros */
-            --bg-light: #f5fbf7;       /* Fondo suave */
-            --white: #ffffff;
-            --shadow-hover: 0 20px 40px rgba(0, 184, 148, 0.2); /* Sombra verde al flotar */
+            --eco-green: #00b894;
+            --eco-dark: #2d3436;
+            --eco-blue: #0984e3;
+            --eco-orange: #e17055;
+            --eco-gray: #636e72;
+            --bg-light: #f0f7f4;
+            --shadow-hover: 0 20px 40px rgba(0, 184, 148, 0.2); 
         }
 
         /* --- RESET Y BASE --- */
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        html { scroll-behavior: smooth; }
+        
+        html { 
+            scroll-behavior: smooth; 
+        }
 
         body {
             font-family: 'Outfit', sans-serif;
-            background-color: var(--bg-light);
+            background: radial-gradient(circle at top left, #f8fffa, #e3f2fd);
+            background-attachment: fixed;
             color: var(--eco-dark);
             overflow-x: hidden;
         }
 
         /* --- HEADER Y NAVEGACIÓN --- */
         header {
-            background: rgba(255, 255, 255, 0.95);
+            background: rgba(255, 255, 255, 0.98);
             padding: 0.8rem 5%;
             position: fixed; width: 100%; top: 0; z-index: 1000;
             display: flex; justify-content: space-between; align-items: center;
-            box-shadow: 0 2px 15px rgba(0,0,0,0.03); backdrop-filter: blur(10px);
+            box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+            backdrop-filter: blur(10px);
+            height: 80px;
         }
 
         .logo { display: flex; align-items: center; }
-        .logo img { max-height: 60px; width: auto; display: block; } /* Controla tamaño del logo */
-        /* Texto de respaldo */
-        .logo-text { font-size: 1.8rem; font-weight: 900; color: var(--eco-dark); display: none; } 
-        .logo-text span { color: var(--eco-green); }
+        .logo img { max-height: 55px; width: auto; display: block; } 
+        
+        /* --- NUEVO ESTILO DEL LOGO DE TEXTO --- */
+        .logo-text { 
+            font-family: 'Outfit', sans-serif;
+            font-size: 2.2rem;      /* Más grande */
+            font-weight: 900;       /* Peso máximo (Black) */
+            font-style: italic;     /* Inclinación para dinamismo/velocidad */
+            letter-spacing: -1px;   /* Letras más juntas, más compacto */
+            color: var(--eco-dark); 
+            display: none; /* Se muestra si falla la imagen */
+            align-items: center;
+        } 
+        
+        .logo-text span { 
+            color: var(--eco-green); /* Fallback para navegadores viejos */
+            
+            /* Efecto de Degradado en el texto "CAR" */
+            background: linear-gradient(135deg, var(--eco-green) 0%, #00cec9 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            
+        }
 
         nav { display: flex; gap: 30px; }
         nav a { text-decoration: none; color: var(--eco-dark); font-weight: 600; transition: 0.3s; position: relative; }
@@ -52,19 +77,17 @@
         nav a::after { content: ''; position: absolute; width: 0; height: 3px; bottom: -5px; left: 0; background: var(--eco-green); transition: 0.3s; }
         nav a:hover::after { width: 100%; }
 
-        /* --- HERO (PORTADA INNOVADORA) --- */
+        /* --- HERO (PORTADA) --- */
         .hero {
-            padding: 180px 5% 100px;
+            padding: 140px 5% 40px; 
             display: flex; align-items: center; justify-content: space-between;
-            min-height: 90vh;
-            background: linear-gradient(135deg, #ffffff 0%, #e3fdf5 100%); /* Degradado diagonal */
+            min-height: 85vh;
             position: relative; overflow: hidden;
         }
 
-        /* Decoración de fondo */
         .hero::before {
             content: ''; position: absolute; top: -10%; right: -5%;
-            width: 500px; height: 500px; background: rgba(0, 184, 148, 0.05);
+            width: 500px; height: 500px; background: rgba(0, 184, 148, 0.08);
             border-radius: 50%; z-index: 0;
         }
 
@@ -81,110 +104,122 @@
         .btn-primary:hover { transform: translateY(-5px); box-shadow: 0 15px 35px rgba(0, 184, 148, 0.6); }
 
         .hero-img { position: relative; z-index: 1; transition: 0.5s; }
-        .hero-img:hover { transform: scale(1.05); }
+        .hero-img:hover { transform: scale(1.02); }
 
-        /* --- SECCIÓN CATEGORÍAS --- */
-        .seccion { padding: 80px 5%; max-width: 1400px; margin: 0 auto; }
-        .titulo-seccion { text-align: center; margin-bottom: 50px; }
-        .titulo-seccion h2 { font-size: 2.5rem; margin-bottom: 10px; }
+        /* --- SECCIÓN GENERAL --- */
+        .seccion { 
+            padding: 20px 5%;
+            max-width: 1400px; 
+            margin: 0 auto; 
+            scroll-margin-top: 100px; 
+        }
+        
+        .titulo-seccion { text-align: center; margin-bottom: 30px; margin-top: 10px; }
+        .titulo-seccion h2 { font-size: 2.5rem; margin-bottom: 5px; }
 
+        /* --- CATEGORÍAS --- */
         .grid-categorias {
             display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 30px; text-align: center; margin-bottom: 80px;
+            gap: 20px; text-align: center; margin-bottom: 40px; 
         }
 
         .cat-card {
-            background: white; padding: 30px 20px; border-radius: 25px;
+            background: white; padding: 25px 20px; border-radius: 20px;
             box-shadow: 0 5px 15px rgba(0,0,0,0.05); transition: 0.3s; cursor: pointer;
             border: 1px solid rgba(0,0,0,0.03);
         }
-        .cat-card:hover { border-color: var(--eco-green); transform: translateY(-10px); box-shadow: var(--shadow-hover); }
-        .cat-icon { font-size: 3rem; color: var(--eco-green); margin-bottom: 15px; }
+        .cat-card:hover { border-color: var(--eco-green); transform: translateY(-5px); box-shadow: var(--shadow-hover); }
+        .cat-icon { font-size: 2.5rem; color: var(--eco-green); margin-bottom: 10px; }
 
         /* --- BARRA DE BÚSQUEDA --- */
-        .buscador-container { max-width: 600px; margin: 0 auto 50px; position: relative; }
+        .buscador-container { max-width: 600px; margin: 0 auto 40px; position: relative; }
         .buscador-input {
-            width: 100%; padding: 15px 20px 15px 55px; border-radius: 50px;
+            width: 100%; padding: 12px 20px 12px 50px; border-radius: 50px;
             border: 2px solid rgba(0,0,0,0.05); background: white;
-            font-family: 'Outfit', sans-serif; font-size: 1.1rem;
+            font-family: 'Outfit', sans-serif; font-size: 1rem;
             box-shadow: 0 5px 15px rgba(0,0,0,0.05); outline: none; transition: 0.3s;
         }
         .buscador-input:focus { border-color: var(--eco-green); box-shadow: 0 5px 20px rgba(0, 184, 148, 0.2); }
-        .icono-lupa { position: absolute; left: 20px; top: 50%; transform: translateY(-50%); color: #b2bec3; font-size: 1.2rem; }
+        .icono-lupa { position: absolute; left: 20px; top: 50%; transform: translateY(-50%); color: #b2bec3; font-size: 1.1rem; }
 
-        /* --- ESTILOS DE PRODUCTOS (INNOVADOR) --- */
-        .grid-productos { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 40px; }
+        /* --- ESTILOS DE PRODUCTOS --- */
+        .grid-productos { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 30px; }
 
         .producto {
-            background: white; border-radius: 25px; overflow: hidden;
-            box-shadow: 0 10px 20px rgba(0,0,0,0.03); border: 1px solid rgba(0,0,0,0.04);
+            background: white; border-radius: 20px; overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.03); border: 1px solid rgba(0,0,0,0.04);
             transition: all 0.3s ease; animation: fadeIn 0.6s ease;
             display: flex; flex-direction: column; height: 100%;
         }
-        .producto:hover { transform: translateY(-10px); box-shadow: var(--shadow-hover); border-color: var(--eco-green); }
+        .producto:hover { transform: translateY(-5px); box-shadow: var(--shadow-hover); border-color: var(--eco-green); }
 
-        .producto-img { height: 260px; background: white; padding: 20px; display: flex; align-items: center; justify-content: center; }
+        .producto-img { height: 240px; background: white; padding: 15px; display: flex; align-items: center; justify-content: center; border-bottom: 1px solid #f0f0f0; }
         .producto-img img { max-height: 100%; transition: 0.3s; }
         .producto:hover .producto-img img { transform: scale(1.08); }
 
-        .producto-info { padding: 25px; flex-grow: 1; display: flex; flex-direction: column; }
+        .producto-info { padding: 20px; flex-grow: 1; display: flex; flex-direction: column; }
 
-        /* --- NUEVOS ESTILOS PARA ETIQUETAS DOBLES --- */
-        .etiquetas-wrapper { display: flex; gap: 8px; margin-bottom: 12px; flex-wrap: wrap; }
+        .etiquetas-wrapper { display: flex; gap: 6px; margin-bottom: 10px; flex-wrap: wrap; }
         
-        /* Etiqueta de Marca (Verde Sólido) */
         .tag {
-            background: var(--eco-green); color: white; padding: 6px 12px;
-            border-radius: 20px; font-size: 0.7rem; font-weight: 800;
-            text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 0;
+            background: var(--eco-green); color: white; padding: 5px 10px;
+            border-radius: 15px; font-size: 0.65rem; font-weight: 800;
+            text-transform: uppercase; letter-spacing: 0.5px;
         }
         
-        /* Etiqueta de Tipo (Auto/Moto/etc) */
         .tag-tipo {
-            background-color: var(--eco-gray); color: white; padding: 6px 12px;
-            border-radius: 20px; font-size: 0.7rem; font-weight: 800;
-            text-transform: uppercase; letter-spacing: 0.5px; display: flex; align-items: center; gap: 5px;
+            background-color: var(--eco-gray); color: white; padding: 5px 10px;
+            border-radius: 15px; font-size: 0.65rem; font-weight: 800;
+            text-transform: uppercase; letter-spacing: 0.5px; display: flex; align-items: center; gap: 4px;
         }
-        /* Colores específicos por tipo */
         .tipo-auto { background-color: var(--eco-blue); }
         .tipo-moto { background-color: var(--eco-orange); }
         .tipo-pesado { background-color: var(--eco-dark); }
         .tipo-fluido { background-color: #00cec9; }
 
-        /* Títulos de producto limitados a 2 líneas */
         .producto h3 {
-            font-size: 1.1rem; font-weight: 700; margin-bottom: 10px; line-height: 1.4;
-            height: 3rem; overflow: hidden; display: -webkit-box; -webkit-box-orient: vertical;
+            font-size: 1rem; font-weight: 700; margin-bottom: 8px; line-height: 1.3;
+            height: 2.8rem; overflow: hidden; display: -webkit-box; -webkit-box-orient: vertical;
         }
 
-        /* Precio grande y verde */
-        .precio { font-size: 1.8rem; font-weight: 900; color: var(--eco-green); margin-top: auto; margin-bottom: 15px; }
+        /* ESTILO PARA STOCK */
+        .stock-indicador {
+            font-size: 0.8rem;
+            color: #27ae60; 
+            font-weight: 600;
+            margin-top: auto; 
+            margin-bottom: 5px;
+            display: flex; align-items: center; gap: 5px;
+        }
+        .stock-indicador i { font-size: 0.9rem; }
 
-        /* Botón sólido oscuro */
+        .precio { font-size: 1.6rem; font-weight: 900; color: var(--eco-dark); margin-bottom: 15px; }
+
         .btn-cotizar {
             display: block; text-align: center; background: var(--eco-dark); color: white;
-            padding: 12px; border-radius: 15px; text-decoration: none; font-weight: bold;
-            transition: 0.3s; border: none;
+            padding: 10px; border-radius: 12px; text-decoration: none; font-weight: bold;
+            transition: 0.3s; border: none; font-size: 0.95rem;
         }
-        .btn-cotizar:hover { background: var(--eco-green); transform: scale(1.02); box-shadow: 0 5px 15px rgba(0, 184, 148, 0.4); }
+        .btn-cotizar:hover { background: var(--eco-green); transform: scale(1.02); }
 
         @keyframes fadeIn { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
 
         .btn-reset {
-            display: none; margin: 0 auto 30px; background: #636e72; color: white;
-            border: none; padding: 10px 25px; border-radius: 50px; cursor: pointer; font-weight: bold;
+            display: none; margin: 0 auto 20px; background: #636e72; color: white;
+            border: none; padding: 8px 20px; border-radius: 50px; cursor: pointer; font-weight: bold;
         }
 
         /* --- FOOTER --- */
-        footer { background: var(--eco-dark); color: white; padding: 80px 5% 40px; margin-top: 100px; text-align: center; }
-        .social-icons { font-size: 2.2rem; margin-bottom: 30px; display: flex; justify-content: center; gap: 25px; }
+        footer { background: var(--eco-dark); color: white; padding: 60px 5% 30px; margin-top: 60px; text-align: center; }
+        .social-icons { font-size: 2rem; margin-bottom: 20px; display: flex; justify-content: center; gap: 20px; }
         .social-link { color: rgba(255,255,255,0.7); transition: 0.3s; }
         .social-link:hover { color: var(--eco-green); transform: translateY(-5px); }
 
         @media (max-width: 768px) {
             nav { display: none; }
-            .hero { flex-direction: column; text-align: center; padding-top: 120px; }
-            .hero h1 { font-size: 3rem; }
+            .hero { flex-direction: column; text-align: center; padding-top: 100px; }
+            .hero h1 { font-size: 2.8rem; }
+            .seccion { padding: 30px 5%; scroll-margin-top: 90px; }
         }
     </style>
 </head>
@@ -192,8 +227,9 @@
 
     <header>
         <div class="logo">
-            <img src="logo.png" alt="Ecocar Logo" onerror="this.style.display='none'; document.getElementById('txt-logo').style.display='block';">
-            <div id="txt-logo" class="logo-text" style="display:none;">ECO<span>CAR</span></div>
+            <img src="logo.png" alt="Ecocar Logo" style="display:none;" onerror="this.style.display='none'; document.getElementById('txt-logo').style.display='flex';">
+            
+            <div id="txt-logo" class="logo-text" style="display:flex;">ECO<span>CAR</span></div>
         </div>
         <nav>
             <a href="#" onclick="filtrar('todos')">Inicio</a>
@@ -209,14 +245,14 @@
             <a href="#productos" class="btn-primary">Ver Catálogo</a>
         </div>
         <div class="hero-img">
-            <img src="https://cdn-icons-png.flaticon.com/512/3202/3202926.png" style="width: 100%; max-width: 450px;">
+            <img src="https://cdn-icons-png.flaticon.com/512/3202/3202926.png" style="width: 100%; max-width: 400px;">
         </div>
     </section>
 
     <section id="categorias" class="seccion">
         <div class="titulo-seccion">
             <h2>Categorías</h2>
-            <p>Selecciona una opción para filtrar productos</p>
+            <p style="font-size: 0.9rem; color: #666;">Selecciona una opción para filtrar</p>
         </div>
 
         <div class="grid-categorias">
@@ -233,13 +269,13 @@
             <div class="cat-card" onclick="filtrar('fluido')">
                 <i class="fas fa-oil-can cat-icon"></i>
                 <h3>Fluidos</h3>
-                <p>Frenos, Cajas, Corona, Coolant</p>
+                <p>Mantenimiento</p>
             </div>
         </div>
     </section>
 
-    <section id="productos" class="seccion" style="background: white; border-radius: 40px; box-shadow: 0 0 40px rgba(0,0,0,0.02);">
-        <div class="titulo-seccion" style="padding-top: 50px;">
+    <section id="productos" class="seccion" style="background: rgba(255,255,255,0.6); border-radius: 40px; box-shadow: 0 0 40px rgba(0,0,0,0.02);">
+        <div class="titulo-seccion" style="padding-top: 30px;">
             <h2 id="titulo-productos">Catálogo Premium</h2>
             <button class="btn-reset" onclick="filtrar('todos')" id="btn-reset">Ver Todo</button>
         </div>
@@ -259,6 +295,7 @@
                         <span class="tag-tipo tipo-auto"><i class="fas fa-car"></i> Vehiculo</span>
                     </div>
                     <h3>MAXLIFE SINTETICO SAE 10W30 1QT</h3>
+                    <div class="stock-indicador"><i class="fas fa-check-circle"></i> Stock disponible</div>
                     <span class="precio">$8.50</span>
                     <a href="https://www.facebook.com/share/1ET2rcirwA/" class="btn-cotizar">Cotizar <i class="fab fa-facebook"></i></a>
                 </div>
@@ -272,6 +309,7 @@
                         <span class="tag-tipo tipo-auto"><i class="fas fa-car"></i> Vehiculo</span>
                     </div>
                     <h3>PREMIUM PROTECTION SINTETICO 10W30 1QT</h3>
+                    <div class="stock-indicador"><i class="fas fa-check-circle"></i> Stock disponible</div>
                     <span class="precio">$7.50</span>
                     <a href="https://www.facebook.com/share/1ET2rcirwA/" class="btn-cotizar">Cotizar <i class="fab fa-facebook"></i></a>
                 </div>
@@ -285,6 +323,7 @@
                         <span class="tag-tipo tipo-auto"><i class="fas fa-car"></i>Vehiculo</span>
                     </div>
                     <h3>PREMIUM PROTECTION SINTETICO 20W50 1QT</h3>
+                    <div class="stock-indicador"><i class="fas fa-check-circle"></i> Stock disponible</div>
                     <span class="precio">$7.50</span>
                     <a href="https://www.facebook.com/share/1ET2rcirwA/" class="btn-cotizar">Cotizar <i class="fab fa-facebook"></i></a>
                 </div>
@@ -298,6 +337,7 @@
                         <span class="tag-tipo tipo-auto"><i class="fas fa-car"></i>Vehiculo</span>
                     </div>
                     <h3>ALL-FLEET + DIESEL 15W40 E700 1QT</h3>
+                    <div class="stock-indicador"><i class="fas fa-check-circle"></i> Stock disponible</div>
                     <span class="precio">$7.50</span>
                     <a href="https://www.facebook.com/share/1ET2rcirwA/" class="btn-cotizar">Cotizar <i class="fab fa-facebook"></i></a>
                 </div>
@@ -311,6 +351,7 @@
                         <span class="tag-tipo tipo-pesado"><i class="fas fa-truck"></i>Vehiculo</span>
                     </div>
                     <h3>ALL FLEET DIESEL 15W40 1GL</h3>
+                    <div class="stock-indicador"><i class="fas fa-check-circle"></i> Stock disponible</div>
                     <span class="precio">$26.00</span>
                     <a href="https://www.facebook.com/share/1ET2rcirwA/" class="btn-cotizar">Cotizar <i class="fab fa-facebook"></i></a>
                 </div>
@@ -324,6 +365,7 @@
                         <span class="tag-tipo tipo-auto"><i class="fas fa-car"></i>Vehiculo</span>
                     </div>
                     <h3>PREMIUM PROTECTION SINTETICO 10W30 1GL</h3>
+                    <div class="stock-indicador"><i class="fas fa-check-circle"></i> Stock disponible</div>
                     <span class="precio">$25.00</span>
                     <a href="https://www.facebook.com/share/1ET2rcirwA/" class="btn-cotizar">Cotizar <i class="fab fa-facebook"></i></a>
                 </div>
@@ -337,6 +379,7 @@
                         <span class="tag-tipo tipo-auto"><i class="fas fa-car"></i>Vehiculo</span>
                     </div>
                     <h3>PREMIUM PROTECTION MOTOR SAE 20W50 1GL</h3>
+                    <div class="stock-indicador"><i class="fas fa-check-circle"></i> Stock disponible</div>
                     <span class="precio">$26.00</span>
                     <a href="https://www.facebook.com/share/1ET2rcirwA/" class="btn-cotizar">Cotizar <i class="fab fa-facebook"></i></a>
                 </div>
@@ -350,6 +393,7 @@
                         <span class="tag-tipo tipo-auto"><i class="fas fa-car"></i>Vehiculo</span>
                     </div>
                     <h3>CASTROL GTX 20W-50</h3>
+                    <div class="stock-indicador"><i class="fas fa-check-circle"></i> Stock disponible</div>
                     <span class="precio">$7.50</span>
                     <a href="https://www.facebook.com/share/1ET2rcirwA/" class="btn-cotizar">Cotizar <i class="fab fa-facebook"></i></a>
                 </div>
@@ -363,6 +407,7 @@
                         <span class="tag-tipo tipo-auto"><i class="fas fa-car"></i>Vehiculo</span>
                     </div>
                     <h3>ACEITE DE MOTOR ND OIL SAE40</h3>
+                    <div class="stock-indicador"><i class="fas fa-check-circle"></i> Stock disponible</div>
                     <span class="precio">$5.00</span>
                     <a href="https://www.facebook.com/share/1ET2rcirwA/" class="btn-cotizar">Cotizar <i class="fab fa-facebook"></i></a>
                 </div>
@@ -376,6 +421,7 @@
                         <span class="tag-tipo tipo-auto"><i class="fas fa-car"></i>Vehiculo</span>
                     </div>
                     <h3>ACEITE DE MOTOR ND OIL SAE50</h3>
+                    <div class="stock-indicador"><i class="fas fa-check-circle"></i> Stock disponible</div>
                     <span class="precio">$5.00</span>
                     <a href="https://www.facebook.com/share/1ET2rcirwA/" class="btn-cotizar">Cotizar <i class="fab fa-facebook"></i></a>
                 </div>
@@ -389,6 +435,7 @@
                         <span class="tag-tipo tipo-moto"><i class="fas fa-motorcycle"></i> Moto</span>
                     </div>
                     <h3>MOTUL 3000 20W-50 4T</h3>
+                    <div class="stock-indicador"><i class="fas fa-check-circle"></i> Stock disponible</div>
                     <span class="precio">$8.99</span>
                     <a href="https://www.facebook.com/share/1ET2rcirwA/" class="btn-cotizar">Cotizar <i class="fab fa-facebook"></i></a>
                 </div>
@@ -402,6 +449,7 @@
                         <span class="tag-tipo tipo-moto"><i class="fas fa-motorcycle"></i> Moto</span>
                     </div>
                     <h3>MOTUL 5100 10W-30 4TT</h3>
+                    <div class="stock-indicador"><i class="fas fa-check-circle"></i> Stock disponible</div>
                     <span class="precio">$10.99</span>
                     <a href="https://www.facebook.com/share/1ET2rcirwA/" class="btn-cotizar">Cotizar <i class="fab fa-facebook"></i></a>
                 </div>
@@ -415,6 +463,7 @@
                         <span class="tag-tipo tipo-fluido"><i class="fas fa-oil-can"></i> Fluido</span>
                     </div>
                     <h3>SOLUCION P/FRENOS 300ml DOT 3</h3>
+                    <div class="stock-indicador"><i class="fas fa-check-circle"></i> Stock disponible</div>
                     <span class="precio">$2.99</span>
                     <a href="https://www.facebook.com/share/1ET2rcirwA/" class="btn-cotizar">Cotizar <i class="fab fa-whatsapp"></i></a>
                 </div>
@@ -428,6 +477,7 @@
                         <span class="tag-tipo tipo-fluido"><i class="fas fa-oil-can"></i> Fluido</span>
                     </div>
                     <h3>SOLUCION P/FRENOS 350ML DOT-3</h3>
+                    <div class="stock-indicador"><i class="fas fa-check-circle"></i> Stock disponible</div>
                     <span class="precio">$3.99</span>
                     <a href="https://www.facebook.com/share/1ET2rcirwA/" class="btn-cotizar">Cotizar <i class="fab fa-facebook"></i></a>
                 </div>
@@ -441,6 +491,7 @@
                         <span class="tag-tipo tipo-fluido"><i class="fas fa-tools"></i> Silicón</span>
                     </div>
                     <h3>SILICON SUPER-GRIS</h3>
+                    <div class="stock-indicador"><i class="fas fa-check-circle"></i> Stock disponible</div>
                     <span class="precio">$3.99</span>
                     <a href="https://www.facebook.com/share/1ET2rcirwA/" class="btn-cotizar">Cotizar <i class="fab fa-facebook"></i></a>
                 </div>
@@ -454,6 +505,7 @@
                         <span class="tag-tipo tipo-fluido"><i class="fas fa-tools"></i> Silicón</span>
                     </div>
                     <h3>9934 RTV Gasket Maker Grey</h3>
+                    <div class="stock-indicador"><i class="fas fa-check-circle"></i> Stock disponible</div>
                     <span class="precio">$3.50</span>
                     <a href="https://www.facebook.com/share/1ET2rcirwA/" class="btn-cotizar">Cotizar <i class="fab fa-facebook"></i></a>
                 </div>
@@ -467,6 +519,7 @@
                         <span class="tag-tipo tipo-fluido"><i class="fas fa-cogs"></i> Hidráulico</span>
                     </div>
                     <h3>POWER STEERING FLUID</h3>
+                    <div class="stock-indicador"><i class="fas fa-check-circle"></i> Stock disponible</div>
                     <span class="precio">$5.00</span>
                     <a href="https://www.facebook.com/share/1ET2rcirwA/" class="btn-cotizar">Cotizar <i class="fab fa-facebook"></i></a>
                 </div>
@@ -480,6 +533,7 @@
                         <span class="tag-tipo tipo-fluido"><i class="fas fa-cogs"></i> Transmisión</span>
                     </div>
                     <h3>ATF TIPO A</h3>
+                    <div class="stock-indicador"><i class="fas fa-check-circle"></i> Stock disponible</div>
                     <span class="precio">$4.99</span>
                     <a href="https://www.facebook.com/share/1ET2rcirwA/" class="btn-cotizar">Cotizar <i class="fab fa-facebook"></i></a>
                 </div>
@@ -493,6 +547,7 @@
                         <span class="tag-tipo tipo-fluido"><i class="fas fa-cogs"></i> Transmisión</span>
                     </div>
                     <h3>LUBRISA GL-1 90</h3>
+                    <div class="stock-indicador"><i class="fas fa-check-circle"></i> Stock disponible</div>
                     <span class="precio">$5.00</span>
                     <a href="https://www.facebook.com/share/1ET2rcirwA/" class="btn-cotizar">Cotizar <i class="fab fa-facebook"></i></a>
                 </div>
@@ -506,6 +561,7 @@
                         <span class="tag-tipo tipo-fluido"><i class="fas fa-cogs"></i> Transmisión</span>
                     </div>
                     <h3>LUBRISA GL-1 140</h3>
+                    <div class="stock-indicador"><i class="fas fa-check-circle"></i> Stock disponible</div>
                     <span class="precio">$5.00</span>
                     <a href="https://www.facebook.com/share/1ET2rcirwA/" class="btn-cotizar">Cotizar <i class="fab fa-facebook"></i></a>
                 </div>
@@ -519,6 +575,7 @@
                         <span class="tag-tipo tipo-fluido" style="background-color: #00cec9;"><i class="fas fa-snowflake"></i> Coolant</span>
                     </div>
                     <h3>LUBRISA REFRIGERANTE</h3>
+                    <div class="stock-indicador"><i class="fas fa-check-circle"></i> Stock disponible</div>
                     <span class="precio">$4.00</span>
                     <a href="https://www.facebook.com/share/1ET2rcirwA/" class="btn-cotizar">Cotizar <i class="fab fa-facebook"></i></a>
                 </div>
@@ -532,6 +589,7 @@
                         <span class="tag-tipo tipo-fluido" style="background-color: #00cec9;"><i class="fas fa-snowflake"></i> Coolant</span>
                     </div>
                     <h3>ABRO REFRIGERANTE</h3>
+                    <div class="stock-indicador"><i class="fas fa-check-circle"></i> Stock disponible</div>
                     <span class="precio">$4.00</span>
                     <a href="https://www.facebook.com/share/1ET2rcirwA/" class="btn-cotizar">Cotizar <i class="fab fa-facebook"></i></a>
                 </div>
@@ -545,6 +603,7 @@
                         <span class="tag-tipo tipo-fluido" style="background-color: #00cec9;"><i class="fas fa-snowflake"></i> Coolant</span>
                     </div>
                     <h3>Universal Antifreeze + Coolant</h3>
+                    <div class="stock-indicador"><i class="fas fa-check-circle"></i> Stock disponible</div>
                     <span class="precio">$10.99</span>
                     <a href="https://www.facebook.com/share/1ET2rcirwA/" class="btn-cotizar">Cotizar <i class="fab fa-facebook"></i></a>
                 </div>
@@ -558,6 +617,7 @@
                         <span class="tag-tipo tipo-fluido"><i class="fas fa-oil-can"></i> Multiuso</span>
                     </div>
                     <h3>WB-50 FUSIÓN MULTIP. ANTIDESGASTE</h3>
+                    <div class="stock-indicador"><i class="fas fa-check-circle"></i> Stock disponible</div>
                     <span class="precio">$5.50</span>
                     <a href="https://www.facebook.com/share/1ET2rcirwA/" class="btn-cotizar">Cotizar <i class="fab fa-facebook"></i></a>
                 </div>
@@ -580,7 +640,6 @@
     </footer>
 
     <script>
-        // FUNCIÓN DE FILTRADO POR CATEGORÍA
         function filtrar(categoria) {
             const productos = document.querySelectorAll('.producto');
             const titulo = document.getElementById('titulo-productos');
@@ -588,14 +647,12 @@
             const seccionProductos = document.getElementById('productos');
             const inputBuscador = document.getElementById('inputBuscador');
 
-            // Limpiamos el buscador si se usa un filtro de categoría
             inputBuscador.value = "";
 
             productos.forEach(prod => {
                 if (categoria === 'todos') {
-                    prod.style.display = 'flex'; // Usamos flex para mantener el diseño de columna
+                    prod.style.display = 'flex';
                 } else {
-                    // Comprobamos si el producto pertenece a la categoría seleccionada
                     if (prod.getAttribute('data-categoria') === categoria) {
                         prod.style.display = 'flex';
                     } else {
@@ -604,19 +661,16 @@
                 }
             });
 
-            // Actualizamos el título y mostramos/ocultamos el botón de reset
             if (categoria === 'todos') {
                 titulo.innerText = "Catálogo Premium";
                 btnReset.style.display = "none";
             } else {
                 titulo.innerText = "Mostrando: " + categoria.toUpperCase();
                 btnReset.style.display = "block";
-                // Desplazamiento suave hacia los resultados
                 seccionProductos.scrollIntoView({ behavior: 'smooth' });
             }
         }
 
-        // FUNCIÓN DE BÚSQUEDA EN TIEMPO REAL
         function buscarProducto() {
             const input = document.getElementById('inputBuscador').value.toLowerCase();
             const productos = document.querySelectorAll('.producto');
@@ -629,10 +683,8 @@
             }
 
             productos.forEach(producto => {
-                // Obtenemos todo el texto dentro de la tarjeta del producto
                 const textoProducto = producto.innerText.toLowerCase();
                 
-                // Si el texto contiene lo que escribió el usuario, lo mostramos
                 if(textoProducto.includes(input)) {
                     producto.style.display = 'flex';
                 } else {
