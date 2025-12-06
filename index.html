@@ -2,7 +2,7 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Ecocar | Lubricentro Profesional</title>
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;700;800;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
@@ -20,7 +20,7 @@
         }
 
         /* --- RESET Y BASE --- */
-        * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
         
         html { 
             scroll-behavior: smooth; 
@@ -32,10 +32,9 @@
             background-attachment: fixed;
             color: var(--eco-dark);
             overflow-x: hidden;
-            padding-bottom: 0; 
         }
 
-        /* --- HEADER Y NAVEGACIÓN (DESKTOP) --- */
+        /* --- HEADER Y NAVEGACIÓN --- */
         header {
             background: rgba(255, 255, 255, 0.98);
             padding: 0.8rem 5%;
@@ -47,35 +46,37 @@
         }
 
         .logo { display: flex; align-items: center; }
+        .logo img { max-height: 55px; width: auto; display: block; } 
         
-        /* LOGO DE TEXTO */
+        /* --- NUEVO ESTILO DEL LOGO DE TEXTO --- */
         .logo-text { 
             font-family: 'Outfit', sans-serif;
-            font-size: 2.2rem;
-            font-weight: 900;            
-            letter-spacing: -1px;
+            font-size: 2.2rem;      /* Más grande */
+            font-weight: 900;       /* Peso máximo (Black) */
+            /* Inclinación para dinamismo/velocidad */
+            letter-spacing: -1px;   /* Letras más juntas, más compacto */
             color: var(--eco-dark); 
-            display: flex;
+            display: none; /* Se muestra si falla la imagen */
             align-items: center;
-            padding-right: 5px; 
-            line-height: 1.2;
         } 
         
         .logo-text span { 
+            color: var(--eco-green); /* Fallback para navegadores viejos */
+            
+            /* Efecto de Degradado en el texto "CAR" */
             background: linear-gradient(135deg, var(--eco-green) 0%, #00cec9 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
-            color: var(--eco-green); 
         }
 
         nav { display: flex; gap: 30px; }
-        nav a { text-decoration: none; color: var(--eco-dark); font-weight: 700; transition: 0.3s; position: relative; font-size: 1.05rem; }
+        nav a { text-decoration: none; color: var(--eco-dark); font-weight: 600; transition: 0.3s; position: relative; }
         nav a:hover { color: var(--eco-green); }
         nav a::after { content: ''; position: absolute; width: 0; height: 3px; bottom: -5px; left: 0; background: var(--eco-green); transition: 0.3s; }
         nav a:hover::after { width: 100%; }
 
-        /* --- HERO --- */
+        /* --- HERO (PORTADA) --- */
         .hero {
             padding: 140px 5% 40px; 
             display: flex; align-items: center; justify-content: space-between;
@@ -104,7 +105,7 @@
         .hero-img { position: relative; z-index: 1; transition: 0.5s; }
         .hero-img:hover { transform: scale(1.02); }
 
-        /* --- SECCIONES --- */
+        /* --- SECCIÓN GENERAL --- */
         .seccion { 
             padding: 20px 5%;
             max-width: 1400px; 
@@ -129,7 +130,7 @@
         .cat-card:hover { border-color: var(--eco-green); transform: translateY(-5px); box-shadow: var(--shadow-hover); }
         .cat-icon { font-size: 2.5rem; color: var(--eco-green); margin-bottom: 10px; }
 
-        /* --- BUSCADOR --- */
+        /* --- BARRA DE BÚSQUEDA --- */
         .buscador-container { max-width: 600px; margin: 0 auto 40px; position: relative; }
         .buscador-input {
             width: 100%; padding: 12px 20px 12px 50px; border-radius: 50px;
@@ -140,7 +141,7 @@
         .buscador-input:focus { border-color: var(--eco-green); box-shadow: 0 5px 20px rgba(0, 184, 148, 0.2); }
         .icono-lupa { position: absolute; left: 20px; top: 50%; transform: translateY(-50%); color: #b2bec3; font-size: 1.1rem; }
 
-        /* --- PRODUCTOS --- */
+        /* --- ESTILOS DE PRODUCTOS --- */
         .grid-productos { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 30px; }
 
         .producto {
@@ -180,6 +181,7 @@
             height: 2.8rem; overflow: hidden; display: -webkit-box; -webkit-box-orient: vertical;
         }
 
+        /* ESTILO PARA STOCK */
         .stock-indicador {
             font-size: 0.8rem;
             color: #27ae60; 
@@ -212,51 +214,11 @@
         .social-link { color: rgba(255,255,255,0.7); transition: 0.3s; }
         .social-link:hover { color: var(--eco-green); transform: translateY(-5px); }
 
-        /* --- VERSIÓN MÓVIL OPTIMIZADA (Menú Abajo SIN ICONOS) --- */
         @media (max-width: 768px) {
-            header { 
-                justify-content: center; 
-                padding: 10px 5%; 
-                height: 60px;
-            }
-
-            nav { 
-                display: flex;
-                position: fixed; 
-                bottom: 0; left: 0; width: 100%;
-                background: rgba(255,255,255,0.98);
-                backdrop-filter: blur(10px);
-                padding: 15px 0; /* Un poco más de padding vertical para centrar el texto */
-                justify-content: space-evenly;
-                box-shadow: 0 -5px 20px rgba(0,0,0,0.05);
-                z-index: 2000;
-                border-top: 1px solid rgba(0,0,0,0.05);
-                gap: 0;
-            }
-
-            nav a { 
-                font-size: 1rem; /* Texto un poco más grande */
-                color: #636e72;
-                font-weight: 700;
-                display: flex; 
-                align-items: center; /* Centrado vertical */
-                justify-content: center;
-                padding: 5px 15px;
-            }
-
-            nav a::after { display: none; }
-            
-            nav a:hover, nav a:active { 
-                color: var(--eco-green); 
-            }
-
-            body { padding-bottom: 70px; }
-            .hero { flex-direction: column; text-align: center; padding-top: 100px; padding-bottom: 40px; }
+            nav { display: none; }
+            .hero { flex-direction: column; text-align: center; padding-top: 100px; }
             .hero h1 { font-size: 2.8rem; }
-            .hero-img { display: none; }
-            
-            .seccion { padding: 30px 5%; scroll-margin-top: 80px; }
-            .logo-text { font-size: 1.8rem; }
+            .seccion { padding: 30px 5%; scroll-margin-top: 90px; }
         }
     </style>
 </head>
@@ -264,7 +226,9 @@
 
     <header>
         <div class="logo">
-            <div class="logo-text">ECO<span>CAR</span></div>
+            <img src="logo.png" alt="Ecocar Logo" style="display:none;" onerror="this.style.display='none'; document.getElementById('txt-logo').style.display='flex';">
+            
+            <div id="txt-logo" class="logo-text" style="display:flex;">ECO<span>CAR</span></div>
         </div>
         <nav>
             <a href="#" onclick="filtrar('todos')">Inicio</a>
