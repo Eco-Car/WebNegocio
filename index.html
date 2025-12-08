@@ -11,19 +11,15 @@
     <style>
         /* --- PALETA DE COLORES NAVIDEÑA --- */
         :root {
-            /* Mantenemos identidad base */
             --eco-green: #00b894; 
             --eco-dark: #2d3436;
             --eco-blue: #0984e3;
             --eco-orange: #e17055;
             --eco-gray: #636e72;
-            
-            /* Colores de Temporada */
             --xmas-red: #d63031;       
             --xmas-dark-red: #b71c1c;  
             --xmas-gold: #fdcb6e;      
             --pine-green: #0f3b2e;     
-            
             --bg-light: #f0f7f4;
             --shadow-hover: 0 20px 40px rgba(214, 48, 49, 0.2); 
         }
@@ -41,7 +37,7 @@
             position: relative;
         }
 
-        /* --- EFECTO DE NIEVE (CSS PURO) --- */
+        /* --- EFECTO DE NIEVE (Optimizado) --- */
         .snow-container {
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
@@ -54,6 +50,9 @@
             background-size: 650px 650px;
             animation: snow 10s linear infinite;
             opacity: 0.6;
+            /* OPTIMIZACIÓN: Hardware acceleration */
+            transform: translateZ(0);
+            will-change: background-position;
         }
 
         @keyframes snow {
@@ -69,6 +68,7 @@
             display: flex; justify-content: space-between; align-items: center;
             box-shadow: 0 4px 20px rgba(0,0,0,0.05);
             backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px); /* Soporte iOS */
             height: 85px;
             border-bottom: 4px solid var(--xmas-red);
         }
@@ -122,6 +122,8 @@
             width: 600px; height: 600px; 
             background: radial-gradient(circle, rgba(214, 48, 49, 0.1) 0%, rgba(0, 184, 148, 0.05) 70%);
             border-radius: 50%; z-index: 0;
+            /* Optimización render */
+            transform: translateZ(0);
         }
 
         .hero-text { max-width: 600px; position: relative; z-index: 1; }
@@ -158,6 +160,8 @@
             background: white; padding: 25px 20px; border-radius: 20px;
             box-shadow: 0 5px 15px rgba(0,0,0,0.05); transition: 0.3s; cursor: pointer;
             border: 1px solid rgba(0,0,0,0.03);
+            /* Optimización: renderizado de tarjeta */
+            will-change: transform;
         }
         .cat-card:hover { border-color: var(--xmas-red); transform: translateY(-5px); box-shadow: var(--shadow-hover); }
         .cat-icon { font-size: 2.5rem; color: var(--xmas-red); margin-bottom: 10px; }
@@ -173,14 +177,20 @@
         .buscador-input:focus { border-color: var(--xmas-red); box-shadow: 0 5px 20px rgba(214, 48, 49, 0.2); }
         .icono-lupa { position: absolute; left: 20px; top: 50%; transform: translateY(-50%); color: var(--xmas-red); font-size: 1.1rem; }
 
-        /* --- PRODUCTOS --- */
+        /* --- PRODUCTOS (OPTIMIZADO) --- */
         .grid-productos { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 30px; }
 
         .producto {
             background: white; border-radius: 20px; overflow: hidden;
             box-shadow: 0 5px 15px rgba(0,0,0,0.03); border: 1px solid rgba(0,0,0,0.04);
-            transition: all 0.3s ease; animation: fadeIn 0.6s ease;
+            transition: transform 0.3s ease, box-shadow 0.3s ease; 
+            animation: fadeIn 0.6s ease;
             display: flex; flex-direction: column; height: 100%; position: relative;
+            
+            /* --- OPTIMIZACIÓN CLAVE --- */
+            /* Evita renderizar contenido fuera de pantalla */
+            content-visibility: auto; 
+            contain-intrinsic-size: 1px 450px; /* Tamaño estimado para evitar saltos */
         }
         .producto::before {
             content: '❄'; position: absolute; top: 10px; right: 10px; 
@@ -249,6 +259,12 @@
             .hero h1 { font-size: 2.8rem; }
             .seccion { padding: 30px 5%; scroll-margin-top: 90px; }
             .logo .santa-hat-icon { font-size: 1.4rem; top: -12px; left: -10px; }
+            
+            /* OPTIMIZACIÓN MÓVIL CRÍTICA: Desactivar nieve en celulares */
+            .snow-container { display: none; }
+            
+            /* Reducir sombras en móvil */
+            .producto { box-shadow: 0 2px 5px rgba(0,0,0,0.05); }
         }
     </style>
 </head>
@@ -319,7 +335,7 @@
         <div class="grid-productos" id="contenedor-productos">
             
             <article class="producto" data-categoria="auto">
-                <div class="producto-img"><img src="V863763-600x598.webp" alt="Aceite" style="width:100%; height:100%; object-fit:contain;"></div>
+                <div class="producto-img"><img src="V863763-600x598.webp" alt="Aceite" loading="lazy" style="width:100%; height:100%; object-fit:contain;"></div>
                 <div class="producto-info">
                     <div class="etiquetas-wrapper">
                         <span class="tag">Valvoline</span>
@@ -333,7 +349,7 @@
             </article>
 
             <article class="producto" data-categoria="auto">
-                <div class="producto-img"><img src="img/V875288.webp" alt="Aceite" style="width:100%; height:100%; object-fit:contain;"></div>
+                <div class="producto-img"><img src="img/V875288.webp" alt="Aceite" loading="lazy" style="width:100%; height:100%; object-fit:contain;"></div>
                 <div class="producto-info">
                     <div class="etiquetas-wrapper">
                         <span class="tag">Valvoline</span>
@@ -347,7 +363,7 @@
             </article>
 
             <article class="producto" data-categoria="auto">
-                <div class="producto-img"><img src="img/V20-50875391.webp" alt="Aceite" style="width:100%; height:100%; object-fit:contain;"></div>
+                <div class="producto-img"><img src="img/V20-50875391.webp" alt="Aceite" loading="lazy" style="width:100%; height:100%; object-fit:contain;"></div>
                 <div class="producto-info">
                     <div class="etiquetas-wrapper">
                         <span class="tag">Valvoline</span>
@@ -361,7 +377,7 @@
             </article>
 
             <article class="producto" data-categoria="auto">
-                <div class="producto-img"><img src="img/V14w40874241.webp" alt="Aceite" style="width:100%; height:100%; object-fit:contain;"></div>
+                <div class="producto-img"><img src="img/V14w40874241.webp" alt="Aceite" loading="lazy" style="width:100%; height:100%; object-fit:contain;"></div>
                 <div class="producto-info">
                     <div class="etiquetas-wrapper">
                         <span class="tag">Valvoline</span>
@@ -375,7 +391,7 @@
             </article>
 
              <article class="producto" data-categoria="auto">
-                <div class="producto-img"><img src="img/V15G859865.webp" alt="Aceite" style="width:100%; height:100%; object-fit:contain;"></div>
+                <div class="producto-img"><img src="img/V15G859865.webp" alt="Aceite" loading="lazy" style="width:100%; height:100%; object-fit:contain;"></div>
                 <div class="producto-info">
                     <div class="etiquetas-wrapper">
                         <span class="tag">Valvoline</span>
@@ -389,7 +405,7 @@
             </article>
 
             <article class="producto" data-categoria="auto">
-                <div class="producto-img"><img src="img/V10G875385.avif" alt="Aceite" style="width:100%; height:100%; object-fit:contain;"></div>
+                <div class="producto-img"><img src="img/V10G875385.avif" alt="Aceite" loading="lazy" style="width:100%; height:100%; object-fit:contain;"></div>
                 <div class="producto-info">
                     <div class="etiquetas-wrapper">
                         <span class="tag">Valvoline</span>
@@ -403,7 +419,7 @@
             </article>
 
             <article class="producto" data-categoria="auto">
-                <div class="producto-img"><img src="img/V2075381.avif" alt="Aceite" style="width:100%; height:100%; object-fit:contain;"></div>
+                <div class="producto-img"><img src="img/V2075381.avif" alt="Aceite" loading="lazy" style="width:100%; height:100%; object-fit:contain;"></div>
                 <div class="producto-info">
                     <div class="etiquetas-wrapper">
                         <span class="tag">Valvoline</span>
@@ -417,7 +433,7 @@
             </article>
 
             <article class="producto" data-categoria="auto">
-                <div class="producto-img"><img src="img/Castrol079191009222_001.jpg" alt="Aceite" style="width:100%; height:100%; object-fit:contain;"></div>
+                <div class="producto-img"><img src="img/Castrol079191009222_001.jpg" alt="Aceite" loading="lazy" style="width:100%; height:100%; object-fit:contain;"></div>
                 <div class="producto-info">
                     <div class="etiquetas-wrapper">
                         <span class="tag">Castrol</span>
@@ -431,7 +447,7 @@
             </article>
 
             <article class="producto" data-categoria="auto">
-                <div class="producto-img"><img src="img/SUS-ND40-QT.webp" alt="Aceite" style="width:100%; height:100%; object-fit:contain;"></div>
+                <div class="producto-img"><img src="img/SUS-ND40-QT.webp" alt="Aceite" loading="lazy" style="width:100%; height:100%; object-fit:contain;"></div>
                 <div class="producto-info">
                     <div class="etiquetas-wrapper">
                         <span class="tag">Super S</span>
@@ -445,7 +461,7 @@
             </article>
 
             <article class="producto" data-categoria="auto">
-                <div class="producto-img"><img src="img/SUS-ND50-QT.webp" alt="Aceite" style="width:100%; height:100%; object-fit:contain;"></div>
+                <div class="producto-img"><img src="img/SUS-ND50-QT.webp" alt="Aceite" loading="lazy" style="width:100%; height:100%; object-fit:contain;"></div>
                 <div class="producto-info">
                     <div class="etiquetas-wrapper">
                         <span class="tag">Super S</span>
@@ -459,7 +475,7 @@
             </article>
 
             <article class="producto" data-categoria="moto">
-                <div class="producto-img"><img src="img/106217.jpg" alt="Aceite" style="width:100%; height:100%; object-fit:contain;"></div>
+                <div class="producto-img"><img src="img/106217.jpg" alt="Aceite" loading="lazy" style="width:100%; height:100%; object-fit:contain;"></div>
                 <div class="producto-info">
                     <div class="etiquetas-wrapper">
                         <span class="tag">Motul</span>
@@ -473,7 +489,7 @@
             </article>
 
              <article class="producto" data-categoria="moto">
-                <div class="producto-img"><img src="img/image.webp" alt="Aceite" style="width:100%; height:100%; object-fit:contain;"></div>
+                <div class="producto-img"><img src="img/image.webp" alt="Aceite" loading="lazy" style="width:100%; height:100%; object-fit:contain;"></div>
                 <div class="producto-info">
                     <div class="etiquetas-wrapper">
                         <span class="tag">Motul</span>
@@ -487,7 +503,7 @@
             </article>
 
             <article class="producto" data-categoria="fluido">
-                <div class="producto-img"><img src="img/A_bro42066_36.jpg" alt="Aceite" style="width:100%; height:100%; object-fit:contain;"></div>
+                <div class="producto-img"><img src="img/A_bro42066_36.jpg" alt="Aceite" loading="lazy" style="width:100%; height:100%; object-fit:contain;"></div>
                 <div class="producto-info">
                     <div class="etiquetas-wrapper">
                         <span class="tag">Abro</span>
@@ -501,7 +517,7 @@
             </article>
 
             <article class="producto" data-categoria="fluido">
-                <div class="producto-img"><img src="img/Prest53122_33.jpg" alt="Aceite" style="width:100%; height:100%; object-fit:contain;"></div>
+                <div class="producto-img"><img src="img/Prest53122_33.jpg" alt="Aceite" loading="lazy" style="width:100%; height:100%; object-fit:contain;"></div>
                 <div class="producto-info">
                     <div class="etiquetas-wrapper">
                         <span class="tag">Prestone</span>
@@ -515,7 +531,7 @@
             </article>
 
             <article class="producto" data-categoria="fluido">
-                <div class="producto-img"><img src="img/GetMultimediaProducto.jpg" alt="Aceite" style="width:100%; height:100%; object-fit:contain;"></div>
+                <div class="producto-img"><img src="img/GetMultimediaProducto.jpg" alt="Aceite" loading="lazy" style="width:100%; height:100%; object-fit:contain;"></div>
                 <div class="producto-info">
                     <div class="etiquetas-wrapper">
                         <span class="tag">CTI O.E.M</span>
@@ -529,7 +545,7 @@
             </article>
 
             <article class="producto" data-categoria="fluido">
-                <div class="producto-img"><img src="img/SE9934.png" alt="Aceite" style="width:100%; height:100%; object-fit:contain;"></div>
+                <div class="producto-img"><img src="img/SE9934.png" alt="Aceite" loading="lazy" style="width:100%; height:100%; object-fit:contain;"></div>
                 <div class="producto-info">
                     <div class="etiquetas-wrapper">
                         <span class="tag">Senfineco</span>
@@ -543,7 +559,7 @@
             </article>
 
             <article class="producto" data-categoria="fluido">
-                <div class="producto-img"><img src="img/PSF-LITRO-600x1070.png" alt="Aceite" style="width:100%; height:100%; object-fit:contain;"></div>
+                <div class="producto-img"><img src="img/PSF-LITRO-600x1070.png" alt="Aceite" loading="lazy" style="width:100%; height:100%; object-fit:contain;"></div>
                 <div class="producto-info">
                     <div class="etiquetas-wrapper">
                         <span class="tag">Lubrisa</span>
@@ -557,7 +573,7 @@
             </article>
 
             <article class="producto" data-categoria="fluido">
-                <div class="producto-img"><img src="img/ATF-5-600x1070.png" alt="Aceite" style="width:100%; height:100%; object-fit:contain;"></div>
+                <div class="producto-img"><img src="img/ATF-5-600x1070.png" alt="Aceite" loading="lazy" style="width:100%; height:100%; object-fit:contain;"></div>
                 <div class="producto-info">
                     <div class="etiquetas-wrapper">
                         <span class="tag">Lubrisa</span>
@@ -571,7 +587,7 @@
             </article>
 
             <article class="producto" data-categoria="fluido">
-                <div class="producto-img"><img src="img/LUBRISA-GL1-90-600x1070.png" alt="Aceite" style="width:100%; height:100%; object-fit:contain;"></div>
+                <div class="producto-img"><img src="img/LUBRISA-GL1-90-600x1070.png" alt="Aceite" loading="lazy" style="width:100%; height:100%; object-fit:contain;"></div>
                 <div class="producto-info">
                     <div class="etiquetas-wrapper">
                         <span class="tag">Lubrisa</span>
@@ -585,7 +601,7 @@
             </article>
 
             <article class="producto" data-categoria="fluido">
-                <div class="producto-img"><img src="img/GL1-40-MONTAJE-600x1070.png" alt="Aceite" style="width:100%; height:100%; object-fit:contain;"></div>
+                <div class="producto-img"><img src="img/GL1-40-MONTAJE-600x1070.png" alt="Aceite" loading="lazy" style="width:100%; height:100%; object-fit:contain;"></div>
                 <div class="producto-info">
                     <div class="etiquetas-wrapper">
                         <span class="tag">Lubrisa</span>
@@ -599,7 +615,7 @@
             </article> 
 
             <article class="producto" data-categoria="fluido">
-                <div class="producto-img"><img src="img/GALON-REFRIGERANTE-A.jpg" alt="Aceite" style="width:100%; height:100%; object-fit:contain;"></div>
+                <div class="producto-img"><img src="img/GALON-REFRIGERANTE-A.jpg" alt="Aceite" loading="lazy" style="width:100%; height:100%; object-fit:contain;"></div>
                 <div class="producto-info">
                     <div class="etiquetas-wrapper">
                         <span class="tag">Lubrisa</span>
@@ -613,7 +629,7 @@
             </article>
 
             <article class="producto" data-categoria="fluido">
-                <div class="producto-img"><img src="img/aBROimage.jpg" alt="Aceite" style="width:100%; height:100%; object-fit:contain;"></div>
+                <div class="producto-img"><img src="img/aBROimage.jpg" alt="Aceite" loading="lazy" style="width:100%; height:100%; object-fit:contain;"></div>
                 <div class="producto-info">
                     <div class="etiquetas-wrapper">
                         <span class="tag">Abro</span>
@@ -627,7 +643,7 @@
             </article>
 
             <article class="producto" data-categoria="fluido">
-                <div class="producto-img"><img src="img/ultra.webp" alt="Aceite" style="width:100%; height:100%; object-fit:contain;"></div>
+                <div class="producto-img"><img src="img/ultra.webp" alt="Aceite" loading="lazy" style="width:100%; height:100%; object-fit:contain;"></div>
                 <div class="producto-info">
                     <div class="etiquetas-wrapper">
                         <span class="tag">UltraCool</span>
@@ -641,7 +657,7 @@
             </article>
 
              <article class="producto" data-categoria="fluido">
-                <div class="producto-img"><img src="img/M-WB-50.jpg" alt="Aceite" style="width:100%; height:100%; object-fit:contain;"></div>
+                <div class="producto-img"><img src="img/M-WB-50.jpg" alt="Aceite" loading="lazy" style="width:100%; height:100%; object-fit:contain;"></div>
                 <div class="producto-info">
                     <div class="etiquetas-wrapper">
                         <span class="tag">Mexlub</span>
