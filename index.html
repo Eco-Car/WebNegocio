@@ -6,10 +6,10 @@
     <meta name="description" content="Ecocar Lubricentro - Catálogo de aceites y lubricantes en El Salvador.">
     <title>Ecocar | Especial Navideño</title>
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;700;800;900&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
     <style>
-        /* --- PALETA DE COLORES NAVIDEÑA --- */
+        /* --- PALETA DE COLORES --- */
         :root {
             --eco-green: #00b894; 
             --eco-dark: #2d3436;
@@ -21,56 +21,32 @@
             --xmas-gold: #fdcb6e;      
             --pine-green: #0f3b2e;     
             --bg-light: #f0f7f4;
-            --shadow-hover: 0 20px 40px rgba(214, 48, 49, 0.2); 
         }
 
         /* --- RESET Y BASE --- */
         * { margin: 0; padding: 0; box-sizing: border-box; }
         
-        html { scroll-behavior: smooth; }
+        /* Quitamos smooth scroll global para mejorar respuesta táctil inmediata en gama media/baja */
+        html { scroll-behavior: auto; }
 
         body {
             font-family: 'Outfit', sans-serif;
-            background: linear-gradient(to bottom, #f3fcfb, #dfe6e9);
+            background-color: #f3fcfb; /* Color sólido (Más rápido que el gradiente) */
             color: var(--eco-dark);
             overflow-x: hidden;
             position: relative;
         }
 
-        /* --- EFECTO DE NIEVE (Optimizado) --- */
-        .snow-container {
-            position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
-            pointer-events: none;
-            z-index: 9999;
-            background-image: 
-                radial-gradient(4px 4px at 100px 50px, #fff , transparent), 
-                radial-gradient(6px 6px at 200px 150px, #fff, transparent), 
-                radial-gradient(3px 3px at 300px 250px, #fff, transparent);
-            background-size: 650px 650px;
-            animation: snow 10s linear infinite;
-            opacity: 0.6;
-            /* OPTIMIZACIÓN: Hardware acceleration */
-            transform: translateZ(0);
-            will-change: background-position;
-        }
-
-        @keyframes snow {
-            0% { background-position: 0px 0px, 0px 0px, 0px 0px; }
-            100% { background-position: 650px 650px, 400px 400px, 300px 300px; }
-        }
-
-        /* --- HEADER Y NAVEGACIÓN --- */
+        /* --- HEADER Y NAVEGACIÓN (OPTIMIZADO) --- */
         header {
-            background: rgba(255, 255, 255, 0.95);
+            background: #ffffff; /* Blanco sólido para máximo rendimiento */
             padding: 0.8rem 5%;
             position: fixed; width: 100%; top: 0; z-index: 1000;
             display: flex; justify-content: space-between; align-items: center;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.05);
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px); /* Soporte iOS */
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05); /* Sombra más ligera */
             height: 85px;
             border-bottom: 4px solid var(--xmas-red);
+            /* SE ELIMINÓ BACKDROP-FILTER (EL EFECTO BORROSO) PARA EVITAR LAG */
         }
 
         .logo { display: flex; align-items: center; position: relative; }
@@ -83,7 +59,6 @@
             top: -18px; left: -15px;
             transform: rotate(-15deg);
             z-index: 10;
-            filter: drop-shadow(2px 2px 2px rgba(0,0,0,0.1));
         }
 
         .logo-text { 
@@ -97,33 +72,19 @@
         } 
         
         .logo-text span { 
-            background: linear-gradient(135deg, var(--xmas-red) 0%, var(--eco-green) 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
+            color: var(--eco-green);
         }
 
         nav { display: flex; gap: 30px; }
         nav a { text-decoration: none; color: var(--eco-dark); font-weight: 600; transition: 0.3s; position: relative; }
         nav a:hover { color: var(--xmas-red); }
-        nav a::after { content: ''; position: absolute; width: 0; height: 3px; bottom: -5px; left: 0; background: var(--xmas-red); transition: 0.3s; }
-        nav a:hover::after { width: 100%; }
 
         /* --- HERO --- */
         .hero {
             padding: 160px 5% 60px; 
             display: flex; align-items: center; justify-content: space-between;
-            min-height: 85vh;
+            min-height: 80vh; /* Reducido un poco para móviles */
             position: relative; overflow: hidden;
-        }
-
-        .hero::before {
-            content: ''; position: absolute; top: -10%; right: -5%;
-            width: 600px; height: 600px; 
-            background: radial-gradient(circle, rgba(214, 48, 49, 0.1) 0%, rgba(0, 184, 148, 0.05) 70%);
-            border-radius: 50%; z-index: 0;
-            /* Optimización render */
-            transform: translateZ(0);
         }
 
         .hero-text { max-width: 600px; position: relative; z-index: 1; }
@@ -134,15 +95,12 @@
         .btn-primary {
             background: var(--xmas-red); color: white; padding: 15px 45px;
             border-radius: 50px; text-decoration: none; font-weight: bold; font-size: 1.1rem;
-            box-shadow: 0 10px 25px rgba(214, 48, 49, 0.4); transition: 0.3s; display: inline-block;
+            box-shadow: 0 5px 15px rgba(214, 48, 49, 0.3); 
+            display: inline-block;
             border: 2px solid white;
         }
-        .btn-primary:hover { 
-            background: var(--xmas-dark-red); transform: translateY(-5px); box-shadow: 0 15px 35px rgba(214, 48, 49, 0.6); 
-        }
 
-        .hero-img { position: relative; z-index: 1; transition: 0.5s; }
-        .hero-img:hover { transform: scale(1.02); }
+        .hero-img { position: relative; z-index: 1; }
 
         /* --- SECCIÓN GENERAL --- */
         .seccion { 
@@ -153,18 +111,18 @@
 
         /* --- CATEGORÍAS --- */
         .grid-categorias {
-            display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 20px; text-align: center; margin-bottom: 40px; 
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); 
+            gap: 15px; text-align: center; margin-bottom: 40px; 
         }
         .cat-card {
-            background: white; padding: 25px 20px; border-radius: 20px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.05); transition: 0.3s; cursor: pointer;
+            background: white; padding: 20px 15px; border-radius: 15px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.04); /* Sombra estática ligera */
+            cursor: pointer;
             border: 1px solid rgba(0,0,0,0.03);
-            /* Optimización: renderizado de tarjeta */
-            will-change: transform;
         }
-        .cat-card:hover { border-color: var(--xmas-red); transform: translateY(-5px); box-shadow: var(--shadow-hover); }
-        .cat-icon { font-size: 2.5rem; color: var(--xmas-red); margin-bottom: 10px; }
+        /* Efecto hover simple solo cambio de color, sin movimiento pesado */
+        .cat-card:active { background-color: #fafafa; } 
+        .cat-icon { font-size: 2.2rem; color: var(--xmas-red); margin-bottom: 10px; }
 
         /* --- BUSCADOR --- */
         .buscador-container { max-width: 600px; margin: 0 auto 40px; position: relative; }
@@ -172,53 +130,57 @@
             width: 100%; padding: 12px 20px 12px 50px; border-radius: 50px;
             border: 2px solid rgba(0,0,0,0.05); background: white;
             font-family: 'Outfit', sans-serif; font-size: 1rem;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.05); outline: none; transition: 0.3s;
+            outline: none;
         }
-        .buscador-input:focus { border-color: var(--xmas-red); box-shadow: 0 5px 20px rgba(214, 48, 49, 0.2); }
         .icono-lupa { position: absolute; left: 20px; top: 50%; transform: translateY(-50%); color: var(--xmas-red); font-size: 1.1rem; }
 
         /* --- PRODUCTOS (OPTIMIZADO) --- */
-        .grid-productos { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 30px; }
+        .grid-productos { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px; }
 
         .producto {
-            background: white; border-radius: 20px; overflow: hidden;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.03); border: 1px solid rgba(0,0,0,0.04);
-            transition: transform 0.3s ease, box-shadow 0.3s ease; 
-            animation: fadeIn 0.6s ease;
+            background: white; border-radius: 15px; overflow: hidden;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05); /* Sombra ligera */
+            border: 1px solid rgba(0,0,0,0.04);
             display: flex; flex-direction: column; height: 100%; position: relative;
-            
-            /* --- OPTIMIZACIÓN CLAVE --- */
-            /* Evita renderizar contenido fuera de pantalla */
-            content-visibility: auto; 
-            contain-intrinsic-size: 1px 450px; /* Tamaño estimado para evitar saltos */
+            /* Eliminamos animaciones complejas de entrada */
         }
-        .producto::before {
-            content: '❄'; position: absolute; top: 10px; right: 10px; 
-            color: #dfe6e9; font-size: 1.5rem; z-index: 2;
+        
+        .producto-img { 
+            height: 220px; 
+            background: white; 
+            padding: 10px; 
+            display: flex; 
+            align-items: center; 
+            justify-content: center; 
+            border-bottom: 1px solid #f0f0f0; 
         }
-        .producto:hover { transform: translateY(-5px); box-shadow: var(--shadow-hover); border-color: var(--xmas-red); }
+        
+        .producto-img img { 
+            max-height: 100%; 
+            width: auto;
+            /* Quitamos transiciones pesadas en la imagen */
+        }
 
-        .producto-img { height: 240px; background: white; padding: 15px; display: flex; align-items: center; justify-content: center; border-bottom: 1px solid #f0f0f0; }
-        .producto-img img { max-height: 100%; transition: 0.3s; }
-        .producto:hover .producto-img img { transform: scale(1.08); }
-
-        .producto-info { padding: 20px; flex-grow: 1; display: flex; flex-direction: column; }
-        .etiquetas-wrapper { display: flex; gap: 6px; margin-bottom: 10px; flex-wrap: wrap; }
+        .producto-info { padding: 15px; flex-grow: 1; display: flex; flex-direction: column; }
+        .etiquetas-wrapper { display: flex; gap: 5px; margin-bottom: 8px; flex-wrap: wrap; }
         
         .tag {
-            background: var(--eco-green); color: white; padding: 5px 10px;
-            border-radius: 15px; font-size: 0.65rem; font-weight: 800;
-            text-transform: uppercase; letter-spacing: 0.5px;
+            background: var(--eco-green); color: white; padding: 4px 8px;
+            border-radius: 10px; font-size: 0.65rem; font-weight: 800;
+            text-transform: uppercase;
         }
         .tag-tipo {
-            background-color: var(--eco-gray); color: white; padding: 5px 10px;
-            border-radius: 15px; font-size: 0.65rem; font-weight: 800;
-            text-transform: uppercase; letter-spacing: 0.5px; display: flex; align-items: center; gap: 4px;
+            background-color: var(--eco-gray); color: white; padding: 4px 8px;
+            border-radius: 10px; font-size: 0.65rem; font-weight: 800;
+            text-transform: uppercase; display: flex; align-items: center; gap: 4px;
         }
+        /* COLORES DE ETIQUETAS */
         .tipo-auto { background-color: var(--eco-blue); }
         .tipo-moto { background-color: var(--eco-orange); }
         .tipo-pesado { background-color: var(--eco-dark); }
         .tipo-fluido { background-color: #00cec9; }
+        .tipo-rep-nuevo { background-color: #0984e3; } 
+        .tipo-rep-usado { background-color: #e67e22; } 
 
         .producto h3 {
             font-size: 1rem; font-weight: 700; margin-bottom: 8px; line-height: 1.3;
@@ -230,17 +192,14 @@
             font-size: 0.8rem; color: #27ae60; font-weight: 600;
             margin-top: auto; margin-bottom: 5px; display: flex; align-items: center; gap: 5px;
         }
-        .precio { font-size: 1.6rem; font-weight: 900; color: var(--xmas-red); margin-bottom: 15px; }
+        .precio { font-size: 1.5rem; font-weight: 900; color: var(--xmas-red); margin-bottom: 10px; }
 
         .btn-cotizar {
             display: block; text-align: center; 
             background: var(--pine-green); color: white;
-            padding: 10px; border-radius: 12px; text-decoration: none; font-weight: bold;
-            transition: 0.3s; border: none; font-size: 0.95rem;
+            padding: 10px; border-radius: 10px; text-decoration: none; font-weight: bold;
+            font-size: 0.95rem;
         }
-        .btn-cotizar:hover { background: var(--xmas-red); transform: scale(1.02); }
-
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
 
         .btn-reset {
             display: none; margin: 0 auto 20px; background: #636e72; color: white;
@@ -248,29 +207,41 @@
         }
 
         /* --- FOOTER --- */
-        footer { background: var(--pine-green); color: white; padding: 60px 5% 30px; margin-top: 60px; text-align: center; border-top: 5px solid var(--xmas-red); }
+        footer { background: var(--pine-green); color: white; padding: 40px 5% 30px; margin-top: 40px; text-align: center; border-top: 5px solid var(--xmas-red); }
         .social-icons { font-size: 2rem; margin-bottom: 20px; display: flex; justify-content: center; gap: 20px; }
-        .social-link { color: rgba(255,255,255,0.7); transition: 0.3s; }
-        .social-link:hover { color: var(--xmas-gold); transform: translateY(-5px); }
+        .social-link { color: rgba(255,255,255,0.7); }
 
         @media (max-width: 768px) {
             nav { display: none; }
-            .hero { flex-direction: column; text-align: center; padding-top: 130px; }
-            .hero h1 { font-size: 2.8rem; }
+            .hero { flex-direction: column; text-align: center; padding-top: 130px; justify-content: flex-start; gap: 30px; }
+            .hero h1 { font-size: 2.5rem; }
             .seccion { padding: 30px 5%; scroll-margin-top: 90px; }
             .logo .santa-hat-icon { font-size: 1.4rem; top: -12px; left: -10px; }
-            
-            /* OPTIMIZACIÓN MÓVIL CRÍTICA: Desactivar nieve en celulares */
-            .snow-container { display: none; }
-            
-            /* Reducir sombras en móvil */
-            .producto { box-shadow: 0 2px 5px rgba(0,0,0,0.05); }
+        }
+
+        /* --- VISOR DE IMAGEN (MODAL) --- */
+        .modal {
+            display: none; 
+            position: fixed; 
+            z-index: 10001; 
+            padding-top: 50px; 
+            left: 0; top: 0; width: 100%; height: 100%; 
+            background-color: rgba(0,0,0,0.9); /* Fondo oscuro sin desenfoque para rendimiento */
+        }
+
+        .modal-content {
+            margin: auto; display: block;
+            width: 90%; max-width: 600px; max-height: 80vh;
+            object-fit: contain;
+        }
+
+        .close {
+            position: absolute; top: 15px; right: 25px;
+            color: #f1f1f1; font-size: 40px; font-weight: bold; cursor: pointer;
         }
     </style>
 </head>
 <body>
-
-    <div class="snow-container"></div>
 
     <header>
         <div class="logo">
@@ -289,11 +260,11 @@
         <div class="hero-text">
             <h5 style="color: var(--xmas-red); font-weight: 800; letter-spacing: 2px; margin-bottom: 10px;">¡FELICES FIESTAS!</h5>
             <h1>Regálale vida a tu motor esta <br><span>Navidad.</span></h1>
-            <p>Aprovecha nuestros precios de temporada en lubricantes de alto rendimiento para viajar seguro.</p>
+            <p>Aprovecha nuestros precios de temporada en lubricantes de alto rendimiento.</p>
             <a href="#productos" class="btn-primary"><i class="fas fa-gift"></i> Ver Ofertas</a>
         </div>
         <div class="hero-img">
-            <img src="https://cdn-icons-png.flaticon.com/512/3202/3202926.png" style="width: 100%; max-width: 400px; filter: drop-shadow(0 10px 10px rgba(0,0,0,0.1));">
+            <img src="https://cdn-icons-png.flaticon.com/512/2061/2061956.png" alt="Motor" style="width: 100%; max-width: 350px;">
         </div>
     </section>
 
@@ -318,10 +289,21 @@
                 <h3>Fluidos</h3>
                 <p>Mantenimiento</p>
             </div>
+            
+            <div class="cat-card" onclick="filtrar('repuesto-nuevo')">
+                <i class="fas fa-cogs cat-icon"></i>
+                <h3>Rep. Nuevos</h3>
+                <p>Calidad Garantizada</p>
+            </div>
+            <div class="cat-card" onclick="filtrar('repuesto-usado')">
+                <i class="fas fa-screwdriver-wrench cat-icon"></i>
+                <h3>Rep. Usados</h3>
+                <p>Originales y Baratos</p>
+            </div>
         </div>
     </section>
 
-    <section id="productos" class="seccion" style="background: rgba(255,255,255,0.8); border-radius: 40px; box-shadow: 0 0 40px rgba(214, 48, 49, 0.05); padding-bottom: 40px;">
+    <section id="productos" class="seccion" style="background: white; border-radius: 20px; padding-bottom: 40px;">
         <div class="titulo-seccion" style="padding-top: 30px;">
             <h2 id="titulo-productos" style="color: var(--xmas-red);">Catálogo Navideño</h2>
             <button class="btn-reset" onclick="filtrar('todos')" id="btn-reset">Ver Todo</button>
@@ -329,344 +311,372 @@
 
         <div class="buscador-container">
             <i class="fas fa-search icono-lupa"></i>
-            <input type="text" id="inputBuscador" class="buscador-input" placeholder="Buscar viscosidad, marca o producto..." onkeyup="buscarProducto()">
+            <input type="text" id="inputBuscador" class="buscador-input" placeholder="Buscar producto..." onkeyup="buscarProducto()">
         </div>
 
         <div class="grid-productos" id="contenedor-productos">
             
             <article class="producto" data-categoria="auto">
-                <div class="producto-img"><img src="V863763-600x598.webp" alt="Aceite" loading="lazy" style="width:100%; height:100%; object-fit:contain;"></div>
+                <div class="producto-img"><img src="V863763-600x598.webp" alt="Aceite" loading="lazy"></div>
                 <div class="producto-info">
                     <div class="etiquetas-wrapper">
                         <span class="tag">Valvoline</span>
                         <span class="tag-tipo tipo-auto"><i class="fas fa-car"></i> Vehiculo</span>
                     </div>
                     <h3>MAXLIFE SINTETICO SAE 10W30 1QT</h3>
-                    <div class="stock-indicador"><i class="fas fa-check-circle"></i> Stock disponible</div>
+                    <div class="stock-indicador"><i class="fas fa-check-circle"></i> Stock</div>
                     <span class="precio">$8.50</span>
-                    <a href="https://www.facebook.com/share/1ET2rcirwA/" target="_blank" rel="noopener noreferrer" class="btn-cotizar">Cotizar <i class="fab fa-facebook"></i></a>
+                    <a href="https://www.facebook.com/share/1ET2rcirwA/" target="_blank" class="btn-cotizar">Cotizar</a>
                 </div>
             </article>
 
             <article class="producto" data-categoria="auto">
-                <div class="producto-img"><img src="img/V875288.webp" alt="Aceite" loading="lazy" style="width:100%; height:100%; object-fit:contain;"></div>
+                <div class="producto-img"><img src="img/V875288.webp" alt="Aceite" loading="lazy"></div>
                 <div class="producto-info">
                     <div class="etiquetas-wrapper">
                         <span class="tag">Valvoline</span>
                         <span class="tag-tipo tipo-auto"><i class="fas fa-car"></i> Vehiculo</span>
                     </div>
                     <h3>PREMIUM PROTECTION SINTETICO 10W30 1QT</h3>
-                    <div class="stock-indicador"><i class="fas fa-check-circle"></i> Stock disponible</div>
+                    <div class="stock-indicador"><i class="fas fa-check-circle"></i> Stock</div>
                     <span class="precio">$7.50</span>
-                    <a href="https://www.facebook.com/share/1ET2rcirwA/" target="_blank" rel="noopener noreferrer" class="btn-cotizar">Cotizar <i class="fab fa-facebook"></i></a>
+                    <a href="https://www.facebook.com/share/1ET2rcirwA/" target="_blank" class="btn-cotizar">Cotizar</a>
                 </div>
             </article>
 
             <article class="producto" data-categoria="auto">
-                <div class="producto-img"><img src="img/V20-50875391.webp" alt="Aceite" loading="lazy" style="width:100%; height:100%; object-fit:contain;"></div>
+                <div class="producto-img"><img src="img/V20-50875391.webp" alt="Aceite" loading="lazy"></div>
                 <div class="producto-info">
                     <div class="etiquetas-wrapper">
                         <span class="tag">Valvoline</span>
                         <span class="tag-tipo tipo-auto"><i class="fas fa-car"></i>Vehiculo</span>
                     </div>
                     <h3>PREMIUM PROTECTION SINTETICO 20W50 1QT</h3>
-                    <div class="stock-indicador"><i class="fas fa-check-circle"></i> Stock disponible</div>
+                    <div class="stock-indicador"><i class="fas fa-check-circle"></i> Stock</div>
                     <span class="precio">$7.50</span>
-                    <a href="https://www.facebook.com/share/1ET2rcirwA/" target="_blank" rel="noopener noreferrer" class="btn-cotizar">Cotizar <i class="fab fa-facebook"></i></a>
+                    <a href="https://www.facebook.com/share/1ET2rcirwA/" target="_blank" class="btn-cotizar">Cotizar</a>
                 </div>
             </article>
 
             <article class="producto" data-categoria="auto">
-                <div class="producto-img"><img src="img/V14w40874241.webp" alt="Aceite" loading="lazy" style="width:100%; height:100%; object-fit:contain;"></div>
+                <div class="producto-img"><img src="img/V14w40874241.webp" alt="Aceite" loading="lazy"></div>
                 <div class="producto-info">
                     <div class="etiquetas-wrapper">
                         <span class="tag">Valvoline</span>
                         <span class="tag-tipo tipo-auto"><i class="fas fa-car"></i>Vehiculo</span>
                     </div>
                     <h3>ALL-FLEET + DIESEL 15W40 E700 1QT</h3>
-                    <div class="stock-indicador"><i class="fas fa-check-circle"></i> Stock disponible</div>
+                    <div class="stock-indicador"><i class="fas fa-check-circle"></i> Stock</div>
                     <span class="precio">$7.50</span>
-                    <a href="https://www.facebook.com/share/1ET2rcirwA/" target="_blank" rel="noopener noreferrer" class="btn-cotizar">Cotizar <i class="fab fa-facebook"></i></a>
+                    <a href="https://www.facebook.com/share/1ET2rcirwA/" target="_blank" class="btn-cotizar">Cotizar</a>
                 </div>
             </article>
 
-             <article class="producto" data-categoria="auto">
-                <div class="producto-img"><img src="img/V15G859865.webp" alt="Aceite" loading="lazy" style="width:100%; height:100%; object-fit:contain;"></div>
+            <article class="producto" data-categoria="auto">
+                <div class="producto-img"><img src="img/V15G859865.webp" alt="Aceite" loading="lazy"></div>
                 <div class="producto-info">
                     <div class="etiquetas-wrapper">
                         <span class="tag">Valvoline</span>
                         <span class="tag-tipo tipo-pesado"><i class="fas fa-truck"></i>Vehiculo</span>
                     </div>
                     <h3>ALL FLEET DIESEL 15W40 1GL</h3>
-                    <div class="stock-indicador"><i class="fas fa-check-circle"></i> Stock disponible</div>
+                    <div class="stock-indicador"><i class="fas fa-check-circle"></i> Stock</div>
                     <span class="precio">$26.00</span>
-                    <a href="https://www.facebook.com/share/1ET2rcirwA/" target="_blank" rel="noopener noreferrer" class="btn-cotizar">Cotizar <i class="fab fa-facebook"></i></a>
+                    <a href="https://www.facebook.com/share/1ET2rcirwA/" target="_blank" class="btn-cotizar">Cotizar</a>
                 </div>
             </article>
 
             <article class="producto" data-categoria="auto">
-                <div class="producto-img"><img src="img/V10G875385.avif" alt="Aceite" loading="lazy" style="width:100%; height:100%; object-fit:contain;"></div>
+                <div class="producto-img"><img src="img/V10G875385.avif" alt="Aceite" loading="lazy"></div>
                 <div class="producto-info">
                     <div class="etiquetas-wrapper">
                         <span class="tag">Valvoline</span>
                         <span class="tag-tipo tipo-auto"><i class="fas fa-car"></i>Vehiculo</span>
                     </div>
                     <h3>PREMIUM PROTECTION SINTETICO 10W30 1GL</h3>
-                    <div class="stock-indicador"><i class="fas fa-check-circle"></i> Stock disponible</div>
+                    <div class="stock-indicador"><i class="fas fa-check-circle"></i> Stock</div>
                     <span class="precio">$25.00</span>
-                    <a href="https://www.facebook.com/share/1ET2rcirwA/" target="_blank" rel="noopener noreferrer" class="btn-cotizar">Cotizar <i class="fab fa-facebook"></i></a>
+                    <a href="https://www.facebook.com/share/1ET2rcirwA/" target="_blank" class="btn-cotizar">Cotizar</a>
                 </div>
             </article>
 
             <article class="producto" data-categoria="auto">
-                <div class="producto-img"><img src="img/V2075381.avif" alt="Aceite" loading="lazy" style="width:100%; height:100%; object-fit:contain;"></div>
+                <div class="producto-img"><img src="img/V2075381.avif" alt="Aceite" loading="lazy"></div>
                 <div class="producto-info">
                     <div class="etiquetas-wrapper">
                         <span class="tag">Valvoline</span>
                         <span class="tag-tipo tipo-auto"><i class="fas fa-car"></i>Vehiculo</span>
                     </div>
                     <h3>PREMIUM PROTECTION MOTOR SAE 20W50 1GL</h3>
-                    <div class="stock-indicador"><i class="fas fa-check-circle"></i> Stock disponible</div>
+                    <div class="stock-indicador"><i class="fas fa-check-circle"></i> Stock</div>
                     <span class="precio">$26.00</span>
-                    <a href="https://www.facebook.com/share/1ET2rcirwA/" target="_blank" rel="noopener noreferrer" class="btn-cotizar">Cotizar <i class="fab fa-facebook"></i></a>
+                    <a href="https://www.facebook.com/share/1ET2rcirwA/" target="_blank" class="btn-cotizar">Cotizar</a>
                 </div>
             </article>
 
             <article class="producto" data-categoria="auto">
-                <div class="producto-img"><img src="img/Castrol079191009222_001.jpg" alt="Aceite" loading="lazy" style="width:100%; height:100%; object-fit:contain;"></div>
+                <div class="producto-img"><img src="img/Castrol079191009222_001.jpg" alt="Aceite" loading="lazy"></div>
                 <div class="producto-info">
                     <div class="etiquetas-wrapper">
                         <span class="tag">Castrol</span>
                         <span class="tag-tipo tipo-auto"><i class="fas fa-car"></i>Vehiculo</span>
                     </div>
                     <h3>CASTROL GTX 20W-50</h3>
-                    <div class="stock-indicador"><i class="fas fa-check-circle"></i> Stock disponible</div>
+                    <div class="stock-indicador"><i class="fas fa-check-circle"></i> Stock</div>
                     <span class="precio">$7.50</span>
-                    <a href="https://www.facebook.com/share/1ET2rcirwA/" target="_blank" rel="noopener noreferrer" class="btn-cotizar">Cotizar <i class="fab fa-facebook"></i></a>
+                    <a href="https://www.facebook.com/share/1ET2rcirwA/" target="_blank" class="btn-cotizar">Cotizar</a>
                 </div>
             </article>
 
             <article class="producto" data-categoria="auto">
-                <div class="producto-img"><img src="img/SUS-ND40-QT.webp" alt="Aceite" loading="lazy" style="width:100%; height:100%; object-fit:contain;"></div>
+                <div class="producto-img"><img src="img/SUS-ND40-QT.webp" alt="Aceite" loading="lazy"></div>
                 <div class="producto-info">
                     <div class="etiquetas-wrapper">
                         <span class="tag">Super S</span>
                         <span class="tag-tipo tipo-auto"><i class="fas fa-car"></i>Vehiculo</span>
                     </div>
                     <h3>ACEITE DE MOTOR ND OIL SAE40</h3>
-                    <div class="stock-indicador"><i class="fas fa-check-circle"></i> Stock disponible</div>
+                    <div class="stock-indicador"><i class="fas fa-check-circle"></i> Stock</div>
                     <span class="precio">$5.00</span>
-                    <a href="https://www.facebook.com/share/1ET2rcirwA/" target="_blank" rel="noopener noreferrer" class="btn-cotizar">Cotizar <i class="fab fa-facebook"></i></a>
+                    <a href="https://www.facebook.com/share/1ET2rcirwA/" target="_blank" class="btn-cotizar">Cotizar</a>
                 </div>
             </article>
 
             <article class="producto" data-categoria="auto">
-                <div class="producto-img"><img src="img/SUS-ND50-QT.webp" alt="Aceite" loading="lazy" style="width:100%; height:100%; object-fit:contain;"></div>
+                <div class="producto-img"><img src="img/SUS-ND50-QT.webp" alt="Aceite" loading="lazy"></div>
                 <div class="producto-info">
                     <div class="etiquetas-wrapper">
                         <span class="tag">Super S</span>
                         <span class="tag-tipo tipo-auto"><i class="fas fa-car"></i>Vehiculo</span>
                     </div>
                     <h3>ACEITE DE MOTOR ND OIL SAE50</h3>
-                    <div class="stock-indicador"><i class="fas fa-check-circle"></i> Stock disponible</div>
+                    <div class="stock-indicador"><i class="fas fa-check-circle"></i> Stock</div>
                     <span class="precio">$5.00</span>
-                    <a href="https://www.facebook.com/share/1ET2rcirwA/" target="_blank" rel="noopener noreferrer" class="btn-cotizar">Cotizar <i class="fab fa-facebook"></i></a>
+                    <a href="https://www.facebook.com/share/1ET2rcirwA/" target="_blank" class="btn-cotizar">Cotizar</a>
                 </div>
             </article>
 
             <article class="producto" data-categoria="moto">
-                <div class="producto-img"><img src="img/106217.jpg" alt="Aceite" loading="lazy" style="width:100%; height:100%; object-fit:contain;"></div>
+                <div class="producto-img"><img src="img/106217.jpg" alt="Aceite" loading="lazy"></div>
                 <div class="producto-info">
                     <div class="etiquetas-wrapper">
                         <span class="tag">Motul</span>
                         <span class="tag-tipo tipo-moto"><i class="fas fa-motorcycle"></i> Moto</span>
                     </div>
                     <h3>MOTUL 3000 20W-50 4T</h3>
-                    <div class="stock-indicador"><i class="fas fa-check-circle"></i> Stock disponible</div>
+                    <div class="stock-indicador"><i class="fas fa-check-circle"></i> Stock</div>
                     <span class="precio">$8.99</span>
-                    <a href="https://www.facebook.com/share/1ET2rcirwA/" target="_blank" rel="noopener noreferrer" class="btn-cotizar">Cotizar <i class="fab fa-facebook"></i></a>
+                    <a href="https://www.facebook.com/share/1ET2rcirwA/" target="_blank" class="btn-cotizar">Cotizar</a>
                 </div>
             </article>
 
-             <article class="producto" data-categoria="moto">
-                <div class="producto-img"><img src="img/image.webp" alt="Aceite" loading="lazy" style="width:100%; height:100%; object-fit:contain;"></div>
+            <article class="producto" data-categoria="moto">
+                <div class="producto-img"><img src="img/image.webp" alt="Aceite" loading="lazy"></div>
                 <div class="producto-info">
                     <div class="etiquetas-wrapper">
                         <span class="tag">Motul</span>
                         <span class="tag-tipo tipo-moto"><i class="fas fa-motorcycle"></i> Moto</span>
                     </div>
                     <h3>MOTUL 5100 10W-30 4TT</h3>
-                    <div class="stock-indicador"><i class="fas fa-check-circle"></i> Stock disponible</div>
+                    <div class="stock-indicador"><i class="fas fa-check-circle"></i> Stock</div>
                     <span class="precio">$10.99</span>
-                    <a href="https://www.facebook.com/share/1ET2rcirwA/" target="_blank" rel="noopener noreferrer" class="btn-cotizar">Cotizar <i class="fab fa-facebook"></i></a>
+                    <a href="https://www.facebook.com/share/1ET2rcirwA/" target="_blank" class="btn-cotizar">Cotizar</a>
                 </div>
             </article>
 
             <article class="producto" data-categoria="fluido">
-                <div class="producto-img"><img src="img/A_bro42066_36.jpg" alt="Aceite" loading="lazy" style="width:100%; height:100%; object-fit:contain;"></div>
+                <div class="producto-img"><img src="img/A_bro42066_36.jpg" alt="Aceite" loading="lazy"></div>
                 <div class="producto-info">
                     <div class="etiquetas-wrapper">
                         <span class="tag">Abro</span>
                         <span class="tag-tipo tipo-fluido"><i class="fas fa-oil-can"></i> Fluido</span>
                     </div>
                     <h3>SOLUCION P/FRENOS 300ml DOT 3</h3>
-                    <div class="stock-indicador"><i class="fas fa-check-circle"></i> Stock disponible</div>
+                    <div class="stock-indicador"><i class="fas fa-check-circle"></i> Stock</div>
                     <span class="precio">$2.99</span>
-                    <a href="https://www.facebook.com/share/1ET2rcirwA/" target="_blank" rel="noopener noreferrer" class="btn-cotizar">Cotizar <i class="fab fa-whatsapp"></i></a>
+                    <a href="https://www.facebook.com/share/1ET2rcirwA/" target="_blank" class="btn-cotizar">Cotizar</a>
                 </div>
             </article>
 
             <article class="producto" data-categoria="fluido">
-                <div class="producto-img"><img src="img/Prest53122_33.jpg" alt="Aceite" loading="lazy" style="width:100%; height:100%; object-fit:contain;"></div>
+                <div class="producto-img"><img src="img/Prest53122_33.jpg" alt="Aceite" loading="lazy"></div>
                 <div class="producto-info">
                     <div class="etiquetas-wrapper">
                         <span class="tag">Prestone</span>
                         <span class="tag-tipo tipo-fluido"><i class="fas fa-oil-can"></i> Fluido</span>
                     </div>
                     <h3>SOLUCION P/FRENOS 350ML DOT-3</h3>
-                    <div class="stock-indicador"><i class="fas fa-check-circle"></i> Stock disponible</div>
+                    <div class="stock-indicador"><i class="fas fa-check-circle"></i> Stock</div>
                     <span class="precio">$3.99</span>
-                    <a href="https://www.facebook.com/share/1ET2rcirwA/" target="_blank" rel="noopener noreferrer" class="btn-cotizar">Cotizar <i class="fab fa-facebook"></i></a>
+                    <a href="https://www.facebook.com/share/1ET2rcirwA/" target="_blank" class="btn-cotizar">Cotizar</a>
                 </div>
             </article>
 
             <article class="producto" data-categoria="fluido">
-                <div class="producto-img"><img src="img/GetMultimediaProducto.jpg" alt="Aceite" loading="lazy" style="width:100%; height:100%; object-fit:contain;"></div>
+                <div class="producto-img"><img src="img/GetMultimediaProducto.jpg" alt="Aceite" loading="lazy"></div>
                 <div class="producto-info">
                     <div class="etiquetas-wrapper">
                         <span class="tag">CTI O.E.M</span>
                         <span class="tag-tipo tipo-fluido"><i class="fas fa-tools"></i> Silicón</span>
                     </div>
                     <h3>SILICON SUPER-GRIS</h3>
-                    <div class="stock-indicador"><i class="fas fa-check-circle"></i> Stock disponible</div>
+                    <div class="stock-indicador"><i class="fas fa-check-circle"></i> Stock</div>
                     <span class="precio">$3.99</span>
-                    <a href="https://www.facebook.com/share/1ET2rcirwA/" target="_blank" rel="noopener noreferrer" class="btn-cotizar">Cotizar <i class="fab fa-facebook"></i></a>
+                    <a href="https://www.facebook.com/share/1ET2rcirwA/" target="_blank" class="btn-cotizar">Cotizar</a>
                 </div>
             </article>
 
             <article class="producto" data-categoria="fluido">
-                <div class="producto-img"><img src="img/SE9934.png" alt="Aceite" loading="lazy" style="width:100%; height:100%; object-fit:contain;"></div>
+                <div class="producto-img"><img src="img/SE9934.png" alt="Aceite" loading="lazy"></div>
                 <div class="producto-info">
                     <div class="etiquetas-wrapper">
                         <span class="tag">Senfineco</span>
                         <span class="tag-tipo tipo-fluido"><i class="fas fa-tools"></i> Silicón</span>
                     </div>
                     <h3>9934 RTV Gasket Maker Grey</h3>
-                    <div class="stock-indicador"><i class="fas fa-check-circle"></i> Stock disponible</div>
+                    <div class="stock-indicador"><i class="fas fa-check-circle"></i> Stock</div>
                     <span class="precio">$3.50</span>
-                    <a href="https://www.facebook.com/share/1ET2rcirwA/" target="_blank" rel="noopener noreferrer" class="btn-cotizar">Cotizar <i class="fab fa-facebook"></i></a>
+                    <a href="https://www.facebook.com/share/1ET2rcirwA/" target="_blank" class="btn-cotizar">Cotizar</a>
                 </div>
             </article>
 
             <article class="producto" data-categoria="fluido">
-                <div class="producto-img"><img src="img/PSF-LITRO-600x1070.png" alt="Aceite" loading="lazy" style="width:100%; height:100%; object-fit:contain;"></div>
+                <div class="producto-img"><img src="img/PSF-LITRO-600x1070.png" alt="Aceite" loading="lazy"></div>
                 <div class="producto-info">
                     <div class="etiquetas-wrapper">
                         <span class="tag">Lubrisa</span>
                         <span class="tag-tipo tipo-fluido"><i class="fas fa-cogs"></i> Hidráulico</span>
                     </div>
                     <h3>POWER STEERING FLUID</h3>
-                    <div class="stock-indicador"><i class="fas fa-check-circle"></i> Stock disponible</div>
+                    <div class="stock-indicador"><i class="fas fa-check-circle"></i> Stock</div>
                     <span class="precio">$5.00</span>
-                    <a href="https://www.facebook.com/share/1ET2rcirwA/" target="_blank" rel="noopener noreferrer" class="btn-cotizar">Cotizar <i class="fab fa-facebook"></i></a>
+                    <a href="https://www.facebook.com/share/1ET2rcirwA/" target="_blank" class="btn-cotizar">Cotizar</a>
                 </div>
             </article>
 
             <article class="producto" data-categoria="fluido">
-                <div class="producto-img"><img src="img/ATF-5-600x1070.png" alt="Aceite" loading="lazy" style="width:100%; height:100%; object-fit:contain;"></div>
+                <div class="producto-img"><img src="img/ATF-5-600x1070.png" alt="Aceite" loading="lazy"></div>
                 <div class="producto-info">
                     <div class="etiquetas-wrapper">
                         <span class="tag">Lubrisa</span>
                         <span class="tag-tipo tipo-fluido"><i class="fas fa-cogs"></i> Transmisión</span>
                     </div>
                     <h3>ATF TIPO A</h3>
-                    <div class="stock-indicador"><i class="fas fa-check-circle"></i> Stock disponible</div>
+                    <div class="stock-indicador"><i class="fas fa-check-circle"></i> Stock</div>
                     <span class="precio">$4.99</span>
-                    <a href="https://www.facebook.com/share/1ET2rcirwA/" target="_blank" rel="noopener noreferrer" class="btn-cotizar">Cotizar <i class="fab fa-facebook"></i></a>
+                    <a href="https://www.facebook.com/share/1ET2rcirwA/" target="_blank" class="btn-cotizar">Cotizar</a>
                 </div>
             </article>
 
             <article class="producto" data-categoria="fluido">
-                <div class="producto-img"><img src="img/LUBRISA-GL1-90-600x1070.png" alt="Aceite" loading="lazy" style="width:100%; height:100%; object-fit:contain;"></div>
+                <div class="producto-img"><img src="img/LUBRISA-GL1-90-600x1070.png" alt="Aceite" loading="lazy"></div>
                 <div class="producto-info">
                     <div class="etiquetas-wrapper">
                         <span class="tag">Lubrisa</span>
                         <span class="tag-tipo tipo-fluido"><i class="fas fa-cogs"></i> Transmisión</span>
                     </div>
                     <h3>LUBRISA GL-1 90</h3>
-                    <div class="stock-indicador"><i class="fas fa-check-circle"></i> Stock disponible</div>
+                    <div class="stock-indicador"><i class="fas fa-check-circle"></i> Stock</div>
                     <span class="precio">$5.00</span>
-                    <a href="https://www.facebook.com/share/1ET2rcirwA/" target="_blank" rel="noopener noreferrer" class="btn-cotizar">Cotizar <i class="fab fa-facebook"></i></a>
+                    <a href="https://www.facebook.com/share/1ET2rcirwA/" target="_blank" class="btn-cotizar">Cotizar</a>
                 </div>
             </article>
 
             <article class="producto" data-categoria="fluido">
-                <div class="producto-img"><img src="img/GL1-40-MONTAJE-600x1070.png" alt="Aceite" loading="lazy" style="width:100%; height:100%; object-fit:contain;"></div>
+                <div class="producto-img"><img src="img/GL1-40-MONTAJE-600x1070.png" alt="Aceite" loading="lazy"></div>
                 <div class="producto-info">
                     <div class="etiquetas-wrapper">
                         <span class="tag">Lubrisa</span>
                         <span class="tag-tipo tipo-fluido"><i class="fas fa-cogs"></i> Transmisión</span>
                     </div>
                     <h3>LUBRISA GL-1 140</h3>
-                    <div class="stock-indicador"><i class="fas fa-check-circle"></i> Stock disponible</div>
+                    <div class="stock-indicador"><i class="fas fa-check-circle"></i> Stock</div>
                     <span class="precio">$5.00</span>
-                    <a href="https://www.facebook.com/share/1ET2rcirwA/" target="_blank" rel="noopener noreferrer" class="btn-cotizar">Cotizar <i class="fab fa-facebook"></i></a>
+                    <a href="https://www.facebook.com/share/1ET2rcirwA/" target="_blank" class="btn-cotizar">Cotizar</a>
                 </div>
             </article> 
 
             <article class="producto" data-categoria="fluido">
-                <div class="producto-img"><img src="img/GALON-REFRIGERANTE-A.jpg" alt="Aceite" loading="lazy" style="width:100%; height:100%; object-fit:contain;"></div>
+                <div class="producto-img"><img src="img/GALON-REFRIGERANTE-A.jpg" alt="Aceite" loading="lazy"></div>
                 <div class="producto-info">
                     <div class="etiquetas-wrapper">
                         <span class="tag">Lubrisa</span>
                         <span class="tag-tipo tipo-fluido" style="background-color: #00cec9;"><i class="fas fa-snowflake"></i> Coolant</span>
                     </div>
                     <h3>LUBRISA REFRIGERANTE</h3>
-                    <div class="stock-indicador"><i class="fas fa-check-circle"></i> Stock disponible</div>
+                    <div class="stock-indicador"><i class="fas fa-check-circle"></i> Stock</div>
                     <span class="precio">$4.00</span>
-                    <a href="https://www.facebook.com/share/1ET2rcirwA/" target="_blank" rel="noopener noreferrer" class="btn-cotizar">Cotizar <i class="fab fa-facebook"></i></a>
+                    <a href="https://www.facebook.com/share/1ET2rcirwA/" target="_blank" class="btn-cotizar">Cotizar</a>
                 </div>
             </article>
 
             <article class="producto" data-categoria="fluido">
-                <div class="producto-img"><img src="img/aBROimage.jpg" alt="Aceite" loading="lazy" style="width:100%; height:100%; object-fit:contain;"></div>
+                <div class="producto-img"><img src="img/aBROimage.jpg" alt="Aceite" loading="lazy"></div>
                 <div class="producto-info">
                     <div class="etiquetas-wrapper">
                         <span class="tag">Abro</span>
                         <span class="tag-tipo tipo-fluido" style="background-color: #00cec9;"><i class="fas fa-snowflake"></i> Coolant</span>
                     </div>
                     <h3>ABRO REFRIGERANTE</h3>
-                    <div class="stock-indicador"><i class="fas fa-check-circle"></i> Stock disponible</div>
+                    <div class="stock-indicador"><i class="fas fa-check-circle"></i> Stock</div>
                     <span class="precio">$4.00</span>
-                    <a href="https://www.facebook.com/share/1ET2rcirwA/" target="_blank" rel="noopener noreferrer" class="btn-cotizar">Cotizar <i class="fab fa-facebook"></i></a>
+                    <a href="https://www.facebook.com/share/1ET2rcirwA/" target="_blank" class="btn-cotizar">Cotizar</a>
                 </div>
             </article>
 
             <article class="producto" data-categoria="fluido">
-                <div class="producto-img"><img src="img/ultra.webp" alt="Aceite" loading="lazy" style="width:100%; height:100%; object-fit:contain;"></div>
+                <div class="producto-img"><img src="img/ultra.webp" alt="Aceite" loading="lazy"></div>
                 <div class="producto-info">
                     <div class="etiquetas-wrapper">
                         <span class="tag">UltraCool</span>
                         <span class="tag-tipo tipo-fluido" style="background-color: #00cec9;"><i class="fas fa-snowflake"></i> Coolant</span>
                     </div>
                     <h3>Universal Antifreeze + Coolant</h3>
-                    <div class="stock-indicador"><i class="fas fa-check-circle"></i> Stock disponible</div>
+                    <div class="stock-indicador"><i class="fas fa-check-circle"></i> Stock</div>
                     <span class="precio">$10.99</span>
-                    <a href="https://www.facebook.com/share/1ET2rcirwA/" target="_blank" rel="noopener noreferrer" class="btn-cotizar">Cotizar <i class="fab fa-facebook"></i></a>
+                    <a href="https://www.facebook.com/share/1ET2rcirwA/" target="_blank" class="btn-cotizar">Cotizar</a>
                 </div>
             </article>
 
-             <article class="producto" data-categoria="fluido">
-                <div class="producto-img"><img src="img/M-WB-50.jpg" alt="Aceite" loading="lazy" style="width:100%; height:100%; object-fit:contain;"></div>
+            <article class="producto" data-categoria="fluido">
+                <div class="producto-img"><img src="img/M-WB-50.jpg" alt="Aceite" loading="lazy"></div>
                 <div class="producto-info">
                     <div class="etiquetas-wrapper">
                         <span class="tag">Mexlub</span>
                         <span class="tag-tipo tipo-fluido"><i class="fas fa-oil-can"></i> Multiuso</span>
                     </div>
                     <h3>WB-50 FUSIÓN MULTIP. ANTIDESGASTE</h3>
-                    <div class="stock-indicador"><i class="fas fa-check-circle"></i> Stock disponible</div>
+                    <div class="stock-indicador"><i class="fas fa-check-circle"></i> Stock</div>
                     <span class="precio">$5.50</span>
-                    <a href="https://www.facebook.com/share/1ET2rcirwA/" target="_blank" rel="noopener noreferrer" class="btn-cotizar">Cotizar <i class="fab fa-facebook"></i></a>
+                    <a href="https://www.facebook.com/share/1ET2rcirwA/" target="_blank" class="btn-cotizar">Cotizar</a>
+                </div>
+            </article>
+
+            <article class="producto" data-categoria="repuesto-nuevo">
+                <div class="producto-img"><img src="https://cdn-icons-png.flaticon.com/512/3202/3202926.png" alt="Repuesto" loading="lazy"></div>
+                <div class="producto-info">
+                    <div class="etiquetas-wrapper">
+                        <span class="tag">Toyota</span>
+                        <span class="tag-tipo tipo-rep-nuevo"><i class="fas fa-cogs"></i> Nuevo</span>
+                    </div>
+                    <h3>BOMBA DE AGUA COROLLA 2015</h3>
+                    <div class="stock-indicador"><i class="fas fa-check-circle"></i> Stock</div>
+                    <span class="precio">$35.00</span>
+                    <a href="https://www.facebook.com/share/1ET2rcirwA/" target="_blank" class="btn-cotizar">Cotizar</a>
+                </div>
+            </article>
+
+            <article class="producto" data-categoria="repuesto-usado">
+                <div class="producto-img"><img src="https://cdn-icons-png.flaticon.com/512/3202/3202926.png" alt="Repuesto" loading="lazy"></div>
+                <div class="producto-info">
+                    <div class="etiquetas-wrapper">
+                        <span class="tag">Nissan</span>
+                        <span class="tag-tipo tipo-rep-usado"><i class="fas fa-screwdriver-wrench"></i> Usado</span>
+                    </div>
+                    <h3>ALTERNADOR SENTRA B15 (ORIGINAL)</h3>
+                    <div class="stock-indicador"><i class="fas fa-check-circle"></i> Stock</div>
+                    <span class="precio">$45.00</span>
+                    <a href="https://www.facebook.com/share/1ET2rcirwA/" target="_blank" class="btn-cotizar">Cotizar</a>
                 </div>
             </article>
 
@@ -678,33 +688,34 @@
         <p style="margin-bottom: 30px; color: rgba(255,255,255,0.7);"><i class="fas fa-sleigh"></i> Sonsonate, El Salvador</p>
         
         <div class="social-icons">
-            <a href="https://www.facebook.com/share/1ET2rcirwA/" target="_blank" rel="noopener noreferrer" class="social-link"><i class="fab fa-facebook"></i></a>
-            <a href="https://www.instagram.com/" target="_blank" rel="noopener noreferrer" class="social-link"><i class="fab fa-instagram"></i></a>
-            <a href="https://wa.me/50300000000" target="_blank" rel="noopener noreferrer" class="social-link"><i class="fab fa-whatsapp"></i></a>
+            <a href="https://www.facebook.com/share/1ET2rcirwA/" target="_blank" class="social-link"><i class="fab fa-facebook"></i></a>
+            <a href="https://www.instagram.com/" target="_blank" class="social-link"><i class="fab fa-instagram"></i></a>
+            <a href="https://wa.me/50300000000" target="_blank" class="social-link"><i class="fab fa-whatsapp"></i></a>
         </div>
 
         <p style="color: rgba(255,255,255,0.4); font-size: 0.9rem;">&copy; 2025 Ecocar. Felices Fiestas.</p>
     </footer>
 
+    <div id="miModal" class="modal" onclick="cerrarModal()">
+      <span class="close">&times;</span>
+      <img class="modal-content" id="imgGrande">
+    </div>
+
     <script>
+        // --- FILTRADO (Simplificado) ---
         function filtrar(categoria) {
             const productos = document.querySelectorAll('.producto');
             const titulo = document.getElementById('titulo-productos');
             const btnReset = document.getElementById('btn-reset');
-            const seccionProductos = document.getElementById('productos');
             const inputBuscador = document.getElementById('inputBuscador');
 
             inputBuscador.value = "";
 
             productos.forEach(prod => {
-                if (categoria === 'todos') {
+                if (categoria === 'todos' || prod.getAttribute('data-categoria') === categoria) {
                     prod.style.display = 'flex';
                 } else {
-                    if (prod.getAttribute('data-categoria') === categoria) {
-                        prod.style.display = 'flex';
-                    } else {
-                        prod.style.display = 'none';
-                    }
+                    prod.style.display = 'none';
                 }
             });
 
@@ -712,32 +723,38 @@
                 titulo.innerText = "Catálogo Navideño";
                 btnReset.style.display = "none";
             } else {
-                titulo.innerText = "Mostrando: " + categoria.toUpperCase();
+                titulo.innerText = "Mostrando: " + categoria.toUpperCase().replace('-', ' ');
                 btnReset.style.display = "block";
-                seccionProductos.scrollIntoView({ behavior: 'smooth' });
+                document.getElementById('productos').scrollIntoView();
             }
         }
 
+        // --- BUSCADOR ---
         function buscarProducto() {
             const input = document.getElementById('inputBuscador').value.toLowerCase();
             const productos = document.querySelectorAll('.producto');
-            const titulo = document.getElementById('titulo-productos');
-
-            if (input === "") {
-                titulo.innerText = "Catálogo Navideño";
-            } else {
-                titulo.innerText = "Resultados de búsqueda...";
-            }
-
+            
             productos.forEach(producto => {
-                const textoProducto = producto.innerText.toLowerCase();
-                
-                if(textoProducto.includes(input)) {
-                    producto.style.display = 'flex';
-                } else {
-                    producto.style.display = 'none';
-                }
+                const texto = producto.innerText.toLowerCase();
+                producto.style.display = texto.includes(input) ? 'flex' : 'none';
             });
+        }
+
+        // --- VISOR DE IMÁGENES ---
+        var modal = document.getElementById("miModal");
+        var modalImg = document.getElementById("imgGrande");
+        var imagenes = document.querySelectorAll('.producto-img img');
+
+        imagenes.forEach(function(img) {
+            img.addEventListener('click', function(){
+                modal.style.display = "flex";      
+                modal.style.alignItems = "center"; 
+                modalImg.src = this.src;           
+            });
+        });
+
+        function cerrarModal() {
+            modal.style.display = "none";
         }
     </script>
 </body>
